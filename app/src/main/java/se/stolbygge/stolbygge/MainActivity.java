@@ -2,16 +2,28 @@ package se.stolbygge.stolbygge;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.*;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    PartListAdapter adapter;
+    ArrayList<Part> parts;
+    ListView partListView;
+    TextView logging;
+    GridView partGridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        onCreateProductList();
     }
 
 
@@ -38,6 +50,27 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public boolean onCreateProductList(){
+
+        parts = new ArrayList<Part>();
+        adapter = new PartListAdapter(this);
+
+        parts.add(new Part("Insexskruv", "1", "insexskruv.png",6));
+        parts.add(new Part("Insexnyckel", "1", "insexsnyckel.png", 1));
+        parts.add(new Part("Plugg","1","plugg.png",2));
+        parts.add(new Part("Vänster benpar","1","vanster_benpar.png",1));
+        parts.add(new Part("Höger benpar","1","hoger_benpar.png",1));
+        parts.add(new Part("Sitts","1","sitts.png",1));
+        parts.add(new Part("Ryggstöd","1","ryggstod.png",1));
+        parts.add(new Part("Ryggstödsdekoration","1","ryggstodsdekoration.png",1));
+
+
+        adapter.setParts(parts);
+        partListView = (ListView) findViewById(R.id.listview);
+        partGridView = (GridView) findViewById(R.id.gridview);
+        partGridView.setNumColumns(parts.size());
+        partGridView.setColumnWidth(300);
+        //partGridView.setAdapter(adapter);
+        partListView.setAdapter(adapter);
 
         return true;
     }
