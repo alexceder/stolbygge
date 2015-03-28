@@ -22,7 +22,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("*******","*******************");
         onCreateProductList();
     }
 
@@ -52,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateProductList(){
 
         parts = new ArrayList<Part>();
-        adapter = new PartListAdapter(this);
+        adapter = new PartListAdapter(this,R.layout.part_list_item, parts);
 
         parts.add(new Part("Insexskruv", "1", "insexskruv",6));
         parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
