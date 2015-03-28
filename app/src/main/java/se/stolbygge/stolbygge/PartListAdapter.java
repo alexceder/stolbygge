@@ -1,7 +1,9 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,16 +45,20 @@ public class PartListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
+
+
+        Part currentPart = parts.get(position);
+
         View view;
         if(convertView == null) {
+            Log.d("*** position:",Integer.toString(position) + "   " + parts.get(position).getName());
             view = LayoutInflater.from(context).inflate(R.layout.part_list_item,null);
             ImageView img = (ImageView) view.findViewById(R.id.imageView);
 
-            String s = parts.get(position).getImgName();
-            Uri uri = Uri.parse("android.resource://se.stolbygge.stolbygge/drawable/" + parts.get(position).getImgName());
-            img.setImageURI(uri);
+            int id = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
+            img.setImageResource(id);
             TextView text = (TextView) view.findViewById(R.id.textView);
-            text.setText(parts.get(position).getName() + " (" + Integer.toString(parts.get(position).getAmount()) + ")");
+            text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
         } else {
             view = convertView;
         }
