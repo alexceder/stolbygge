@@ -10,20 +10,20 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PartListAdapter extends ArrayAdapter<Part> {
+public class StepListAdapter extends ArrayAdapter<Step> {
 
     private Context context;
-private ArrayList<Part> parts;
+    private ArrayList<Step> steps;
 
-    public PartListAdapter(Context context, int resource, ArrayList<Part> parts) {
-        super(context, resource, parts);
+    public StepListAdapter(Context context, int resource, ArrayList<Step> steps) {
+        super(context, resource, steps);
         this.context = context;
-        this.parts = parts;
+        this.steps = steps;
     }
 
     @Override
     public int getCount() {
-        return parts.size();
+        return steps.size();
     }
 
     @Override
@@ -32,34 +32,35 @@ private ArrayList<Part> parts;
     }
 
     @Override
-    public Part getItem(int position) {
-        return parts.get(position);
+    public Step getItem(int position) {
+        return steps.get(position);
     }
 
-    public void setParts(ArrayList<Part> parts) {
-        this.parts = parts;
+    public void setSteps(ArrayList<Step> steps) {
+        this.steps = steps;
     }
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        Part currentPart = parts.get(position);
+        Step currentStep = steps.get(position);
         View view;
 
         if(convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.part_list_item,null);
+            view = LayoutInflater.from(context).inflate(R.layout.step_list_item,null);
 
         } else {
             view = convertView;
         }
 
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
-        int id = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
+        int id = context.getResources().getIdentifier(currentStep.getImgName(), "drawable", context.getPackageName());
         img.setImageResource(id);
 
         TextView text = (TextView) view.findViewById(R.id.textView);
-        text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
+        text.setText(currentStep.getName());
 
         return view;
     }
 }
+

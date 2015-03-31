@@ -13,7 +13,9 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity {
 
     PartListAdapter adapter;
+    StepListAdapter stepadapter;
     ArrayList<Part> parts;
+    ArrayList<Step> steps;
     ListView partListView;
     GridView partGridView;
 
@@ -22,7 +24,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        onCreateProductList();
+        //onCreateProductList();
+
+        onCreateStepList();
     }
 
 
@@ -70,6 +74,47 @@ public class MainActivity extends ActionBarActivity {
         partGridView.setColumnWidth(300);
         //partGridView.setAdapter(adapter);
         partListView.setAdapter(adapter);
+
+        return true;
+    }
+
+    public boolean onCreateStepList(){
+
+        steps = new ArrayList<Step>();
+        parts = new ArrayList<Part>();
+        stepadapter = new StepListAdapter(this, R.layout.step_list_item, steps);
+
+        parts.add(new Part("Ryggstöd","1","ryggstod", 1));
+        parts.add(new Part("Ryggstödsdekoration","1","ryggstodsdekoration", 1));
+        parts.add(new Part("Plugg","1","plugg", 2));
+        steps.add(new Step("Steg 1",1,"steg_1", parts));
+        parts.clear();
+
+        parts.add(new Part("Sits", "1", "sits",1));
+        steps.add(new Step("Steg 2",2,"steg_2", parts));
+        parts.clear();
+
+        parts.add(new Part("Höger benpar","1","hoger_benpar", 1));
+        steps.add(new Step("Steg 3",3,"steg_3", parts));
+        parts.clear();
+
+        parts.add(new Part("Vänster benpar","1","vanster_benpar",1));
+        steps.add(new Step("Steg 4",4,"steg_4", parts));
+        parts.clear();
+
+        parts.add(new Part("Insexskruv", "1", "insexskruv",3));
+        steps.add(new Step("Steg 5",5,"steg_5", parts));
+
+        steps.add(new Step("Steg 6",6,"steg_6", parts));
+
+        stepadapter.setSteps(steps);
+        partListView = (ListView) findViewById(R.id.listview);
+        partGridView = (GridView) findViewById(R.id.gridview);
+        partGridView.setNumColumns(steps.size());
+        partGridView.setColumnWidth(300);
+        //partGridView.setAdapter(adapter);
+        partListView.setAdapter(stepadapter);
+
 
         return true;
     }
