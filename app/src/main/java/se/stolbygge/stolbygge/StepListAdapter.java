@@ -1,9 +1,12 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +46,15 @@ public class StepListAdapter extends ArrayAdapter<Step> {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+
+        int screenHeight = metrics.heightPixels;
+        int screenWidth = metrics.widthPixels;
+
+        Log.d("agil ***" , "height " + Integer.toString(screenHeight) + " * " + Integer.toString(screenWidth));
+
         Step currentStep = steps.get(position);
         View view;
 
@@ -59,6 +71,8 @@ public class StepListAdapter extends ArrayAdapter<Step> {
 
         TextView text = (TextView) view.findViewById(R.id.textView);
         text.setText(currentStep.getName());
+
+        view.setMinimumHeight(screenHeight);
 
         return view;
     }
