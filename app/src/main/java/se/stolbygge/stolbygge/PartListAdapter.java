@@ -46,9 +46,8 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         Part currentPart = parts.get(position);
         View view;
 
-        if(convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.part_list_item,null);
-
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.part_list_item, null);
         } else {
             view = convertView;
         }
