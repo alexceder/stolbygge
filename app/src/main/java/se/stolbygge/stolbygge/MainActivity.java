@@ -104,11 +104,8 @@ public class MainActivity extends ActionBarActivity {
         steps.add(new Step("Steg 6",6,"steg_6", parts));
 
         stepadapter.setSteps(steps);
-        partListView = (ListView) findViewById(R.id.listview_parts);
         stepListView = (ListView) findViewById(R.id.listview_steps);
-        //partListView.setAdapter(partadapter);
         stepListView.setAdapter(stepadapter);
-
 
         return true;
     }
