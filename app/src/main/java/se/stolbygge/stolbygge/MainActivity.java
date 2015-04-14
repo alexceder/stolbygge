@@ -107,6 +107,8 @@ public class MainActivity extends ActionBarActivity {
         stepListView = (ListView) findViewById(R.id.listview_steps);
         stepListView.setAdapter(stepadapter);
 
+        //stepListView.smoothScrollToPosition(3);
+        stepListView.smoothScrollByOffset(600);
         return true;
     }
 }

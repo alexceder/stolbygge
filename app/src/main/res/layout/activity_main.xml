@@ -17,7 +17,8 @@
     <ListView
         android:id="@+id/listview_steps"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:smoothScrollbar="true">
     </ListView>
 
 </RelativeLayout>

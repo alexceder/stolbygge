@@ -46,15 +46,19 @@ public class StepListAdapter extends ArrayAdapter<Step> {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getMetrics(metrics);
+        //DisplayMetrics metrics = new DisplayMetrics();
+        //WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        //windowManager.getDefaultDisplay().getMetrics(metrics);
 
-        int screenHeight = metrics.heightPixels;
-        int screenWidth = metrics.widthPixels;
 
-        Log.d("agil ***" , "height " + Integer.toString(screenHeight) + " * " + Integer.toString(screenWidth));
+        //int screenHeight = metrics.heightPixels;
+        //int screenWidth = metrics.widthPixels;
 
+        //Log.d("agil ***" , "height " + Integer.toString(screenHeight) + " * " + Integer.toString(screenWidth));
+
+        int parentHeight = parent.getHeight();
+        //Log.d("*** parent ", Integer.toString(parentHeight));
+        //Log.d("*** parent/getcount ", Integer.toString(parentHeight/getCount()));
         Step currentStep = steps.get(position);
         View view;
 
@@ -66,13 +70,15 @@ public class StepListAdapter extends ArrayAdapter<Step> {
         }
 
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
+        img.setMaxHeight(parentHeight);
+        img.setMaxWidth(300);
         int id = context.getResources().getIdentifier(currentStep.getImgName(), "drawable", context.getPackageName());
         img.setImageResource(id);
 
         TextView text = (TextView) view.findViewById(R.id.textView);
         text.setText(currentStep.getName());
 
-        view.setMinimumHeight(screenHeight);
+        view.setMinimumHeight(parentHeight);
 
         return view;
     }
