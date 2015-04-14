@@ -10,41 +10,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PartListAdapter extends ArrayAdapter<Part> {
+public class MissingListAdapter extends PartListAdapter {
 
-    protected Context context;
-    protected ArrayList<Part> parts;
-    protected int resource;
-
-    public PartListAdapter(Context context, int resource, ArrayList<Part> parts) {
+    public MissingListAdapter(Context context, int resource, ArrayList<Part> parts) {
         super(context, resource, parts);
-        this.context = context;
-        this.resource = resource;
-        this.parts = parts;
-    }
-
-    @Override
-    public int getCount() {
-        return parts.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public Part getItem(int position) {
-        return parts.get(position);
-    }
-
-    public void setParts(ArrayList<Part> parts) {
-        this.parts = parts;
     }
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-
         Part currentPart = parts.get(position);
         View view;
 
@@ -54,11 +27,11 @@ public class PartListAdapter extends ArrayAdapter<Part> {
             view = convertView;
         }
 
-        ImageView img = (ImageView) view.findViewById(R.id.imageView);
+        ImageView img = (ImageView) view.findViewById(R.id.missing_part_image);
         int id = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
         img.setImageResource(id);
 
-        TextView text = (TextView) view.findViewById(R.id.textView);
+        TextView text = (TextView) view.findViewById(R.id.missing_part_name);
         text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
 
         return view;

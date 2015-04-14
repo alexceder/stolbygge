@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MissingPartsActivity"
+            android:label="@string/title_activity_parts" >
+            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
+        </activity>
     </application>
 
 </manifest>

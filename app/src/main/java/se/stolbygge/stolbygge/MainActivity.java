@@ -1,5 +1,6 @@
 package se.stolbygge.stolbygge;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -39,6 +40,20 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, MissingPartsActivity.class);
+            //ArrayList missing = (ArrayList<Part>) parts.clone();
+            ArrayList missing = (ArrayList<Part>) parts.clone();
+            missing.remove(0);
+            missing.remove(0);
+            missing.remove(0);
+            missing.remove(0);
+            missing.remove(0);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("missing", missing);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
             return true;
         }
 
@@ -58,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
         parts.add(new Part("Ryggstöd", "1", "ryggstod",1));
         parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
 
-        adapter.setParts(parts);
+        //adapter.setParts(parts);
         partListView = (ListView) findViewById(R.id.listview);
         partListView.setAdapter(adapter);
 
