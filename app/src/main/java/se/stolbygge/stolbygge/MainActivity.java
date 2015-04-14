@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
 
-    PartListAdapter adapter;
+    PartListAdapter partadapter;
     StepListAdapter stepadapter;
     ArrayList<Part> parts;
     ArrayList<Step> steps;
     ListView partListView;
+    ListView stepListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,11 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean onCreateProductList() {
-        parts = new ArrayList<>();
-        adapter = new PartListAdapter(this,R.layout.part_list_item, parts);
+
+    public boolean onCreateProductList(){
+
+        parts = new ArrayList<Part>();
+        partadapter = new PartListAdapter(this,R.layout.part_list_item, parts);
 
         parts.add(new Part("Insexskruv", "1", "insexskruv", 6));
         parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
@@ -62,9 +66,10 @@ public class MainActivity extends ActionBarActivity {
         parts.add(new Part("Ryggstöd", "1", "ryggstod",1));
         parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
 
-        adapter.setParts(parts);
-        partListView = (ListView) findViewById(R.id.listview);
-        partListView.setAdapter(adapter);
+        partadapter.setParts(parts);
+        partListView = (ListView) findViewById(R.id.listview_parts);
+        partListView.setAdapter(partadapter);
+
 
         return true;
     }
@@ -99,13 +104,12 @@ public class MainActivity extends ActionBarActivity {
         steps.add(new Step("Steg 6",6,"steg_6", (ArrayList)parts.clone()));
 
         stepadapter.setSteps(steps);
-        partListView = (ListView) findViewById(R.id.listview);
-        //partGridView = (GridView) findViewById(R.id.gridview);
-        //partGridView.setNumColumns(steps.size());
-        //partGridView.setColumnWidth(300);
-        //partGridView.setAdapter(adapter);
+
+        partListView = (ListView) findViewById(R.id.listview_parts);
         partListView.setAdapter(stepadapter);
 
+        stepListView = (ListView) findViewById(R.id.listview_steps);
+        stepListView.setAdapter(stepadapter);
 
         return true;
     }
