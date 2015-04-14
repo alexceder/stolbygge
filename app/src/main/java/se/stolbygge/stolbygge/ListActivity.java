@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 
 public class ListActivity extends ActionBarActivity {
-    public final static String EXTRA_MESSAGE = "se.stolbygge.stolbygge.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

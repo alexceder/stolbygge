@@ -1,5 +1,6 @@
 package se.stolbygge.stolbygge;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -16,14 +17,13 @@ import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity{
-    public final static String EXTRA_MESSAGE = "se.stolbygge.stolbygge.MESSAGE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    //onCreateProductList();
     }
 
     /*
