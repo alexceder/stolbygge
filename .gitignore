@@ -3,3 +3,9 @@
 /.idea
 .DS_Store
 /build
+
+# metaio
+metaioSDK/build/intermediates/manifests/tmp
+
+# project file
+*.iml

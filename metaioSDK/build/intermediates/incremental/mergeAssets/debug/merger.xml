@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/assets"/></dataSet><dataSet config="debug"><source path="/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/build-types/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/assets"/></dataSet><dataSet config="debug"><source path="/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/build-types/debug/assets"/></dataSet></merger>

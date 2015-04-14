@@ -9,4 +9,4 @@
     <item android:drawable="@color/transparent" android:state_focused="true"/>
     <item android:drawable="@color/transparent" android:state_selected="false"/>
     <item android:drawable="@color/transparent"/>
-</selector><!-- From: file:/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/res/drawable/selector_darker.xml --><!-- From: file:/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/build/intermediates/bundles/debug/res/drawable/selector_darker.xml -->
+</selector><!-- From: file:/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/res/drawable/selector_darker.xml --><!-- From: file:/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/build/intermediates/bundles/debug/res/drawable/selector_darker.xml -->

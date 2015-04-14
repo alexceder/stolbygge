@@ -9,4 +9,4 @@
     <item android:drawable="@android:color/transparent" android:state_focused="true"/>
     <item android:drawable="@android:color/transparent" android:state_selected="false"/>
     <item android:drawable="@android:color/transparent"/>
-</selector><!-- From: file:/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/res/drawable/simple_button_background_selector.xml -->
+</selector><!-- From: file:/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/res/drawable/simple_button_background_selector.xml -->

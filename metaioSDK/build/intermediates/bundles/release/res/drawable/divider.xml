@@ -2,4 +2,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
     <size android:height="1dip" />
     <solid android:color="@color/metaiocolor" />
-</shape><!-- From: file:/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/res/drawable/divider.xml -->
+</shape><!-- From: file:/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/res/drawable/divider.xml -->

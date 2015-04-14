@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/linneanabo/dev/Agilen/stolbygge/metaioSDK/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <bool name="isTablet">false</bool>
     <color name="button_pressed_background">#33000000</color>
