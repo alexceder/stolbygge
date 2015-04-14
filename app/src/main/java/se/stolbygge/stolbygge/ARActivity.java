@@ -11,6 +11,7 @@ import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.EENV_MAP_FORMAT;
 import com.metaio.tools.io.AssetsManager;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ARActivity extends ARViewActivity {
@@ -54,10 +55,25 @@ public class ARActivity extends ARViewActivity {
 
     @Override
     protected void loadContents() {
-        // KAN BEHÖVA LADDA IN EN "VIZAID"
-        mKritterModel = loadModel("PATH");
+        // May need a "VIZAID" to find contour
+        // Load the model
+        mKritterModel = loadModel("app/src/main/assets/kritter.obj");
 
+        // Check that model not null
+        if(mKritterModel != null) {
+            // Unique id for every object
+            mKritterModel.setCoordinateSystemID(1);
+        } else {
+            Log.d("ARActivity", "Model not loaded!");
+        }
 
+        setTrackingConfiguration("PATHTOTRACK.XML");
+
+    }
+
+    // Sets all parameters needed for tracking
+    private boolean setTrackingConfiguration(final String s) {
+        return false;
     }
 
     @Override
@@ -65,7 +81,22 @@ public class ARActivity extends ARViewActivity {
 
     }
 
-    private IGeometry loadModel(final String modelPath) {
-        return null;
+    // Loads tracking model
+    private IGeometry loadModel(final String path) {
+
+        IGeometry geometry = null;
+
+        try {
+            // get the file from given path
+            final File modelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), path);
+            // creates a object of the given file
+            geometry = metaioSDK.createGeometry(modelPath);
+            Log.d("ARActivity", "in loadModel: loaded!");
+        }catch(Exception e) {
+            Log.d("ARActivity", "in loadModel: not loaded");
+            return geometry;
+        }
+
+        return geometry;
     }
 }
