@@ -100,9 +100,9 @@ public class MainActivity extends ActionBarActivity {
 
         stepadapter.setSteps(steps);
         partListView = (ListView) findViewById(R.id.listview);
-        partGridView = (GridView) findViewById(R.id.gridview);
-        partGridView.setNumColumns(steps.size());
-        partGridView.setColumnWidth(300);
+        //partGridView = (GridView) findViewById(R.id.gridview);
+        //partGridView.setNumColumns(steps.size());
+        //partGridView.setColumnWidth(300);
         //partGridView.setAdapter(adapter);
         partListView.setAdapter(stepadapter);
 
