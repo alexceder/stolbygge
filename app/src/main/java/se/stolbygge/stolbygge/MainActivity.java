@@ -1,41 +1,27 @@
 package se.stolbygge.stolbygge;
 
-import android.app.ActionBar;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class MainActivity extends ActionBarActivity{
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
-    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    */
 
-    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -50,38 +36,36 @@ public class MainActivity extends ActionBarActivity{
 
         return super.onOptionsItemSelected(item);
     }
-    */
 
-
-    // Is called when the button "Product List" with id button1 on the homepage is clicked.
+    // Is called when the button "Product List" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // The operation is to call ListActivity.class that shows and handles the product list.
     // Starts the intent.
-    public void onCreateProductList(View view){
+    public void onCreateProductList(View view) {
         Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
-        //Log.d("******", "i metoden onCreateProductList i MainActivity");
         startActivity(I);
     }
 
-    // Is called when the button "Result List" with id button2 on the homepage is clicked.
+    // Is called when the button "Result List" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // Starts the intent.
-    // TODO
-    // Instead on ListActivitity.class, write in the class for the result page.
-    // And de-comment, doh!
-    public void onCreateResultList(View view) {
+    public void onCreateInstructionList(View view) {//TODO implement when ready
+        //Intent I = new Intent(this, se.stolbygge.stolbygge.InstructionActivity.class);
+        //startActivity(I);
+    }
+
+    // Is called when the button "Result List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateResultList(View view) { //TODO implement when ready
         //Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
         //startActivity(I);
     }
 
-    // Is called when the button "AR" with id button3 on the homepage is clicked.
+    // Is called when the button "AR" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
-    // The operation is to call AR.
     // Starts the intent.
-    // TODO Implement
-    //Instead on ListActivitity.class, write in the class for the AR page.
-    // De-comment !
-    public void onCreateAR(View view) {
+    public void onCreateAR(View view) { //TODO implement when ready
         //Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
         //startActivity(I);
     }
