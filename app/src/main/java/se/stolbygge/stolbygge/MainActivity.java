@@ -52,13 +52,21 @@ public class MainActivity extends ActionBarActivity{
     }
     */
 
-    public void onCreateProductList(View view){
 
+    // Is called when the button "Product List" with id button1 on the homepage is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ListActivity.class that shows and handles the product list.
+    // Starts the intent.
+    public void onCreateProductList(View view){
         Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
         //Log.d("******", "i metoden onCreateProductList i MainActivity");
         startActivity(I);
     }
 
+    // Is called when the button "Result List" with id button2 on the homepage is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ResultList.class that shows and handles the result list.
+    // Starts the intent.
     public void onCreateResultList(View view) {
         //Kommentera fram detta för att få funktion till knappen Result List
         //Instead on ListActivitity.class, write in the class for the result page.
@@ -67,6 +75,11 @@ public class MainActivity extends ActionBarActivity{
         //startActivity(I);
     }
 
+    // Is called when the button "AR" with id button3 on the homepage is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // TODO Implement
+    // The operation is to call AR. Change ....ListActivity.class.
+    // Starts the intent.
     public void onCreateAR(View view) {
         //Kommentera fram detta för att få funktion till knappen AR
         //Instead on ListActivitity.class, write in the class for the AR page.
