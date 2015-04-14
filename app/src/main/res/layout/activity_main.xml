@@ -26,4 +26,20 @@
         android:layout_gravity="center_horizontal"
         android:onClick="onCreateProductList"/>
 
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:text="Result List"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onCreateResultList"/>
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:text="AR"
+        android:id="@+id/button3"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onCreateAR"/>
+
 </LinearLayout>

@@ -58,4 +58,20 @@ public class MainActivity extends ActionBarActivity{
         //Log.d("******", "i metoden onCreateProductList i MainActivity");
         startActivity(I);
     }
+
+    public void onCreateResultList(View view) {
+        //Kommentera fram detta för att få funktion till knappen Result List
+        //Instead on ListActivitity.class, write in the class for the result page.
+
+        //Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(I);
+    }
+
+    public void onCreateAR(View view) {
+        //Kommentera fram detta för att få funktion till knappen AR
+        //Instead on ListActivitity.class, write in the class for the AR page.
+
+        //Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(I);
+    }
 }
