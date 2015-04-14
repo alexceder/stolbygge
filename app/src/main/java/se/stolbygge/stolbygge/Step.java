@@ -1,6 +1,5 @@
 package se.stolbygge.stolbygge;
 
-
 import java.util.ArrayList;
 
 public class Step {
@@ -9,13 +8,6 @@ public class Step {
     private String step_name;
     private int step_nr;
     private String imgName;
-
-    /* Behöver ha stegnamn och stegnr för att kunna "hämta" steg
-    *
-    * Behöver innehålla en tillhörande bild och en lista med delar som behöver användas.
-    * Ha en array av parts. Borde kunna hämtas från den tidigare parts-arrayen.
-    *
-    * */
 
     public Step(){
         this.step_name = "Steg 1000";
@@ -46,6 +38,4 @@ public class Step {
     public void setImgName(String imgName) {
         this.imgName = imgName;
     }
-
-
 }
