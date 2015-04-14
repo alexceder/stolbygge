@@ -1,6 +1,10 @@
 .gradle
+
+# IDE files
 /local.properties
+gradle/local.properties
 /.idea
+
 .DS_Store
 /build
 
