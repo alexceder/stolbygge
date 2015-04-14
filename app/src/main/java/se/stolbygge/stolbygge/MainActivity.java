@@ -2,6 +2,7 @@ package se.stolbygge.stolbygge;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.*;
@@ -26,6 +27,73 @@ public class MainActivity extends ActionBarActivity {
         //onCreateProductList();
 
         onCreateStepList();
+
+        /*
+        stepListView.post(new Runnable() {
+            @Override
+            public void run() {
+                stepListView.smoothScrollToPosition(4);
+            }
+        });*/
+
+        //stepListView.smoothScrollToPosition(3);
+        //stepListView.smoothScrollBy(600, 1000);
+
+
+        stepListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            private int lastVisibleItem = 0;
+            private int firstVis = 0;
+            private boolean up = false;
+            private boolean manual = false;
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                Log.d("*** first vis: ",Integer.toString(firstVis));
+                if(scrollState == SCROLL_STATE_IDLE && manual) {
+                    manual = false;
+                    if(firstVis < lastVisibleItem) {
+                        Log.d("*** Up", "");
+                        lastVisibleItem = firstVis;
+                        stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
+                    } else {
+                        Log.d("*** Down","");
+                        lastVisibleItem = firstVis+1;
+                        stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                if(visibleItemCount == 2) {
+                    firstVis = firstVisibleItem+1;
+                }
+                manual = true;
+                Log.d("*** last first ",Integer.toString(firstVisibleItem));
+                /*
+                Log.d("*** last first ",Integer.toString(firstVisibleItem));
+                if(visibleItemCount == 2) {
+                    if (firstVisibleItem < lastVisibleItem) { //scroll up
+                        //lastVisibleItem = firstVisibleItem;
+                        up = true;
+                    } else if (firstVisibleItem >= lastVisibleItem) {
+                        //lastVisibleItem = firstVisibleItem + 1;
+                        up = false;
+                    }
+               }
+
+               if(up){
+                   lastVisibleItem = firstVisibleItem;
+               }
+                else{
+                   lastVisibleItem = firstVisibleItem + 1;
+               }*/
+            }
+        });
     }
 
     @Override
@@ -104,16 +172,11 @@ public class MainActivity extends ActionBarActivity {
         stepadapter.setSteps(steps);
 
         partListView = (ListView) findViewById(R.id.listview_parts);
-        partListView.setAdapter(stepadapter);
+        partListView.setAdapter(partadapter);
 
         stepListView = (ListView) findViewById(R.id.listview_steps);
         stepListView.setAdapter(stepadapter);
 
-        partListView = (ListView) findViewById(R.id.listview_parts);
-        partListView.setAdapter(partadapter);
-
-        //stepListView.smoothScrollToPosition(3);
-        stepListView.smoothScrollByOffset(600);
         return true;
     }
 }
