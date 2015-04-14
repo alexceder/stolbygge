@@ -27,7 +27,6 @@ public class ListActivity extends ActionBarActivity {
 
         setContentView(R.layout.part_list);
 
-
         PartListAdapter adapter;
         ArrayList<Part> parts;
         ListView partListView;

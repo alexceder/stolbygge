@@ -43,19 +43,21 @@ public class PartListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
+        Part currentPart = parts.get(position);
         View view;
-        if(convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.part_list_item,null);
-            ImageView img = (ImageView) view.findViewById(R.id.imageView);
 
-            String s = parts.get(position).getImgName();
-            Uri uri = Uri.parse("android.resource://se.stolbygge.stolbygge/drawable/" + parts.get(position).getImgName());
-            img.setImageURI(uri);
-            TextView text = (TextView) view.findViewById(R.id.textView);
-            text.setText(parts.get(position).getName() + " (" + Integer.toString(parts.get(position).getAmount()) + ")");
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.part_list_item, null);
         } else {
             view = convertView;
         }
+
+        ImageView img = (ImageView) view.findViewById(R.id.imageView);
+        int id = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
+        img.setImageResource(id);
+
+        TextView text = (TextView) view.findViewById(R.id.textView);
+        text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
 
         return view;
     }
