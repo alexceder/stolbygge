@@ -2,7 +2,6 @@ package se.stolbygge.stolbygge;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.*;
@@ -28,7 +27,6 @@ public class MainActivity extends ActionBarActivity {
 
         onCreateStepList();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,15 +55,14 @@ public class MainActivity extends ActionBarActivity {
         parts = new ArrayList<Part>();
         partadapter = new PartListAdapter(this,R.layout.part_list_item, parts);
 
-        parts.add(new Part("Insexskruv", "1", "insexskruv",6));
+        parts.add(new Part("Insexskruv", "1", "insexskruv", 6));
         parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
-        parts.add(new Part("Plugg","1","plugg",2));
-        parts.add(new Part("Vänster benpar","1","vanster_benpar",1));
-        parts.add(new Part("Höger benpar","1","hoger_benpar",1));
-        parts.add(new Part("Sitts","1","sitts",1));
-        parts.add(new Part("Ryggstöd","1","ryggstod",1));
-        parts.add(new Part("Ryggstödsdekoration","1","ryggstodsdekoration",1));
-
+        parts.add(new Part("Plugg", "1", "plugg", 2));
+        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", 1));
+        parts.add(new Part("Höger benpar", "1", "hoger_benpar", 1));
+        parts.add(new Part("Sitts", "1", "sitts",1));
+        parts.add(new Part("Ryggstöd", "1", "ryggstod",1));
+        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
 
         partadapter.setParts(parts);
         partListView = (ListView) findViewById(R.id.listview_parts);
@@ -106,6 +103,9 @@ public class MainActivity extends ActionBarActivity {
         stepadapter.setSteps(steps);
         stepListView = (ListView) findViewById(R.id.listview_steps);
         stepListView.setAdapter(stepadapter);
+
+        partListView = (ListView) findViewById(R.id.listview_parts);
+        partListView.setAdapter(partadapter);
 
         //stepListView.smoothScrollToPosition(3);
         stepListView.smoothScrollByOffset(600);
