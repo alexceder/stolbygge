@@ -33,7 +33,7 @@ public class Step {
 
     public int getNr(){ return step_nr; }
 
-    public ArrayList<Part> getPart(){ return parts;}
+    public ArrayList<Part> getParts(){ return parts;}
 
     public String getImgName(){ return imgName;}
 

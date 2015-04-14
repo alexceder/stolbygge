@@ -57,8 +57,17 @@ public class StepListAdapter extends ArrayAdapter<Step> {
         int id = context.getResources().getIdentifier(currentStep.getImgName(), "drawable", context.getPackageName());
         img.setImageResource(id);
 
+        ArrayList<Part> parts = currentStep.getParts();
+
         TextView text = (TextView) view.findViewById(R.id.textView);
-        text.setText(currentStep.getName());
+        String texten = currentStep.getName() + "\n";
+
+        for(int i = 0; i < parts.size(); i++) {
+
+            texten = texten + "\n" + currentStep.getParts().get(i).getName() + " (" + Integer.toString(currentStep.getParts().get(i).getAmount()) + ")";
+
+        }
+        text.setText(texten);
 
         return view;
     }
