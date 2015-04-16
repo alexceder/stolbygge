@@ -44,7 +44,6 @@ public class PartListAdapter extends ArrayAdapter<Part> {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-
         Part currentPart = parts.get(position);
         View view;
 
@@ -54,11 +53,11 @@ public class PartListAdapter extends ArrayAdapter<Part> {
             view = convertView;
         }
 
-        ImageView img = (ImageView) view.findViewById(R.id.imageView);
+        ImageView img = (ImageView) view.findViewById(R.id.image_view);
         int id = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
         img.setImageResource(id);
 
-        TextView text = (TextView) view.findViewById(R.id.textView);
+        TextView text = (TextView) view.findViewById(R.id.text_view);
         text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
 
         return view;

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Stolbygge</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_list">Product List</string>
+    <string name="title_activity_missing">Missing parts</string>
+
     <string name="action_settings">Settings</string>
-    <string name="title_activity_parts">Missing parts</string>
 </resources>

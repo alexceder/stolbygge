@@ -14,6 +14,9 @@ public class MissingListAdapter extends PartListAdapter {
 
     public MissingListAdapter(Context context, int resource, ArrayList<Part> parts) {
         super(context, resource, parts);
+        this.context = context;
+        this.resource = resource;
+        this.parts = parts;
     }
 
     @Override

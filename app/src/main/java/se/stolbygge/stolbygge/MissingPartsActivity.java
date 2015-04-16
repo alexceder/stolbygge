@@ -26,20 +26,21 @@ public class MissingPartsActivity extends ActionBarActivity {
 
     private void setupMissingList() {
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             missing = (ArrayList<Part>) extras.getSerializable("missing");
             adapter = new MissingListAdapter(this, R.layout.missing_list_item, missing);
             listView = (ListView) findViewById(R.id.missing_list_view);
             listView.setAdapter(adapter);
 
-            setTitle(getString(R.string.title_activity_parts) + " (" + adapter.getCount() + ")");
+            setTitle(getString(R.string.title_activity_missing) + " (" + adapter.getCount() + ")");
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_parts, menu);
+        getMenuInflater().inflate(R.menu.menu_missing_parts, menu);
         return true;
     }
 

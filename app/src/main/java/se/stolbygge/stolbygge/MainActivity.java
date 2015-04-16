@@ -5,23 +5,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.*;
+import android.view.View;
 
-import java.util.ArrayList;
-
-
-public class MainActivity extends ActionBarActivity {
-
-    PartListAdapter adapter;
-    ArrayList<Part> parts;
-    ListView partListView;
+public class MainActivity extends ActionBarActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        onCreateProductList();
     }
 
     @Override
@@ -40,43 +31,42 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, MissingPartsActivity.class);
-            //ArrayList missing = (ArrayList<Part>) parts.clone();
-            ArrayList missing = (ArrayList<Part>) parts.clone();
-            missing.remove(0);
-            missing.remove(0);
-            missing.remove(0);
-            missing.remove(0);
-            missing.remove(0);
-
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("missing", missing);
-            intent.putExtras(bundle);
-
-            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean onCreateProductList() {
-        parts = new ArrayList<>();
-        adapter = new PartListAdapter(this,R.layout.part_list_item, parts);
+    // Is called when the button "Product List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ListActivity.class that shows and handles the product list.
+    // Starts the intent.
+    public void onCreateProductList(View view) {
+        Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        startActivity(intent);
+    }
 
-        parts.add(new Part("Insexskruv", "1", "insexskruv", 6));
-        parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
-        parts.add(new Part("Plugg", "1", "plugg", 2));
-        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", 1));
-        parts.add(new Part("Höger benpar", "1", "hoger_benpar", 1));
-        parts.add(new Part("Sitts", "1", "sitts",1));
-        parts.add(new Part("Ryggstöd", "1", "ryggstod",1));
-        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
+    // Is called when the button "Result List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateInstructionList(View view) {//TODO implement when ready
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.InstructionActivity.class);
+        //startActivity(intent);
+    }
 
-        //adapter.setParts(parts);
-        partListView = (ListView) findViewById(R.id.listview);
-        partListView.setAdapter(adapter);
+    // Is called when the button "Result List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateResultList(View view) { //TODO implement when ready
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(intent);
+    }
 
-        return true;
+    // Is called when the button "AR" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateAR(View view) { //TODO implement when ready
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(intent);
     }
 }
