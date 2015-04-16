@@ -30,7 +30,7 @@
         <Button
             android:layout_width="130dp"
             android:layout_height="50dp"
-            android:text="InstructionS"
+            android:text="Instructions"
             android:id="@+id/instruction_list"
             android:layout_gravity="center_horizontal"
             android:onClick="onCreateInstructionList"/>
