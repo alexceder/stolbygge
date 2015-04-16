@@ -10,4 +10,4 @@
     <item android:drawable="@drawable/web_forward_dis" android:state_enabled="false"/>
     <item android:drawable="@drawable/web_forward" android:state_focused="true"/>
     <item android:drawable="@drawable/web_forward"/>
-</selector><!-- From: file:/Users/Phil/AndroidStudioProjects/stolbygge/metaioSDK/res/drawable/selector_web_forward.xml -->
+</selector><!-- From: file:/C:/Users/fredrik/Documents/Skola/TNM082/stolbygge/metaioSDK/res/drawable/selector_web_forward.xml -->

@@ -218,7 +218,7 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
 		}
 
 	}
-
+        // C:\Users\fredrik\Documents\Skola\TNM082\stolbygge\app\src\main\assets
 	@SuppressLint("InlinedApi")
 	@Override
 	protected void onPause()
