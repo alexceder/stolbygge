@@ -5,37 +5,45 @@ import java.util.ArrayList;
 public class Step {
 
     ArrayList<Part> parts;
-    private String step_name;
-    private int step_nr;
+    private String stepName;
+    private int stepNr;
     private String imgName;
+    private boolean checked;
 
     public Step(){
-        this.step_name = "Steg 1000";
-        this.step_nr = 1000;
+        this.stepName = "Steg 1000";
+        this.stepNr = 1000;
     }
 
-    public Step(String step_name, int step_nr, String imgName, ArrayList<Part> parts){
-        this.step_name = step_name;
-        this.step_nr = step_nr;
+    public Step(String stepName, int stepNr, String imgName, ArrayList<Part> parts){
+        this.stepName = stepName;
+        this.stepNr = stepNr;
         this.parts = parts;
         this.imgName = imgName;
+        this.checked = false;
     }
-
-    public String getName(){ return step_name; }
-
-    public int getNr(){ return step_nr; }
 
     public ArrayList<Part> getParts(){ return parts;}
 
+    public String getStepName(){ return stepName; }
+
+    public int getStepNr(){ return stepNr; }
+
     public String getImgName(){ return imgName;}
 
-    public void setName(String step_name){ this.step_name = step_name;}
-
-    public void setNr(int step_nr){ this.step_nr = step_nr;}
+    public boolean isChecked() { return checked; }
 
     public void setPart(ArrayList<Part> parts){ this.parts = parts;}
 
+    public void setStepName(String stepName){ this.stepName = stepName;}
+
+    public void setStepNr(int stepNr){ this.stepNr = stepNr;}
+
     public void setImgName(String imgName) {
         this.imgName = imgName;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="step_done" type="color">#448844</item>
+    <item name="step_left" type="color">#884444</item>
+    <item name="yellow" type="color">#999900</item>
+    <item name="blue" type="color">#0000ff</item>
+</resources>

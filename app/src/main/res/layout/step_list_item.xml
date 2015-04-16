@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="20dp">
 
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_margin="10dp"
-        android:id="@+id/imageView"
         android:layout_weight="1"/>
 
 
@@ -17,22 +17,24 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="40dp"
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center"
-            android:id="@+id/textView"
             android:layout_gravity="center"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/item_checkbox"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:id="@+id/checkBox"
-            android:checked="false"
+            android:paddingTop="100dp"
             android:gravity="center"/>
     </LinearLayout>
 
