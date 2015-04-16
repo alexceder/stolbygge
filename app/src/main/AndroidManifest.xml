@@ -18,7 +18,11 @@
         </activity>
         <activity
             android:name=".ListActivity"
-            android:label="Product List" >
+            android:label="@string/title_activity_list" >
+        </activity>
+        <activity
+            android:name=".MissingPartsActivity"
+            android:label="@string/title_activity_missing" >
         </activity>
     </application>
 

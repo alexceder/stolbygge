@@ -18,24 +18,19 @@ import java.util.ArrayList;
 
 
 public class ListActivity extends ActionBarActivity {
+    private PartListAdapter adapter;
+    private ArrayList<Part> parts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.part_list);
 
-        PartListAdapter adapter;
-        ArrayList<Part> parts;
-        ListView partListView;
-        TextView logging;
-        GridView partGridView;
+        ListView partListView = (ListView) findViewById(R.id.list_view);
 
-        partListView = (ListView) findViewById(R.id.listview);
-
-        parts = new ArrayList<Part>();
-        adapter = new PartListAdapter(this, R.layout.part_list, parts);
+        parts = new ArrayList<>();
+        adapter = new PartListAdapter(this, R.layout.part_list_item, parts);
 
         parts.add(new Part("Insexskruv", "1", "insexskruv",6));
         parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
@@ -49,9 +44,7 @@ public class ListActivity extends ActionBarActivity {
         adapter.setParts(parts);
 
         partListView.setAdapter(adapter);
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,10 +59,25 @@ public class ListActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+
+        if (id == R.id.action_missing) {
+            Intent intent = new Intent(this, MissingPartsActivity.class);
+
+            ArrayList missing = (ArrayList<Part>) parts.clone();
+            missing.remove(0);
+            missing.remove(0);
+            missing.remove(0);
+            missing.remove(0);
+            missing.remove(0);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("missing", missing);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
-
 }
