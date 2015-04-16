@@ -37,6 +37,10 @@
             android:label="@string/title_activity_missing" >
         </activity>
         <activity
+            android:name=".InstructionsActivity"
+            android:label="@string/title_activity_instructions" >
+        </activity>
+        <activity
             android:name=".ARActivity"
             android:label="ARActivity" >
         </activity>

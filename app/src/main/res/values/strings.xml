@@ -3,6 +3,7 @@
 
     <string name="title_activity_list">Product List</string>
     <string name="title_activity_missing">Missing parts</string>
+    <string name="title_activity_instructions">Instructions</string>
 
     <string name="action_settings">Settings</string>
 </resources>

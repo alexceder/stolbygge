@@ -50,8 +50,8 @@ public class MainActivity extends ActionBarActivity{
     // Creates an abstract description called intent I, with an operation to be performed.
     // Starts the intent.
     public void onCreateInstructionList(View view) {//TODO implement when ready
-        //Intent intent = new Intent(this, se.stolbygge.stolbygge.InstructionActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, se.stolbygge.stolbygge.InstructionsActivity.class);
+        startActivity(intent);
     }
 
     // Is called when the button "Result List" is clicked.
