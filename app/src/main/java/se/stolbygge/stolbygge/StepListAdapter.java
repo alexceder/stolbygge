@@ -1,22 +1,14 @@
 package se.stolbygge.stolbygge;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import se.stolbygge.stolbygge.InstructionsActivity;
 
 import java.util.ArrayList;
 
@@ -24,10 +16,12 @@ public class StepListAdapter extends ArrayAdapter<Step> {
 
     private Context context;
     private ArrayList<Step> steps;
+    int resource;
 
     public StepListAdapter(Context context, int resource, ArrayList<Step> steps) {
         super(context, resource, steps);
         this.context = context;
+        this.resource = resource;
         this.steps = steps;
     }
 
@@ -53,58 +47,38 @@ public class StepListAdapter extends ArrayAdapter<Step> {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-
-        //DisplayMetrics metrics = new DisplayMetrics();
-        //WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        //windowManager.getDefaultDisplay().getMetrics(metrics);
-
-
-        //int screenHeight = metrics.heightPixels;
-        //int screenWidth = metrics.widthPixels;
-
-        //Log.d("agil ***" , "height " + Integer.toString(screenHeight) + " * " + Integer.toString(screenWidth));
-
-        int parentHeight = parent.getHeight();
-        int parentWidth = parent.getWidth();
-        Log.d("*** height/2",Integer.toString(parentHeight/2));
-
-        //Log.d("*** parent ", Integer.toString(parentHeight));
-        //Log.d("*** parent/getcount ", Integer.toString(parentHeight/getCount()));
-        final Step currentStep = steps.get(position);
         View view;
+        final Step currentStep = steps.get(position);
+        ArrayList<Part> parts = currentStep.getParts();
 
         if(convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.step_list_item,null);
+            view = LayoutInflater.from(context).inflate(resource,null);
 
         } else {
             view = convertView;
         }
 
+        int parentHeight = parent.getHeight();
+
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
-        img.setMinimumHeight(parentHeight / 2);
-        //img.setMaxWidth(parentWidth/2);
         int imgId = context.getResources().getIdentifier(currentStep.getImgName(), "drawable", context.getPackageName());
         img.setImageResource(imgId);
 
-        ArrayList<Part> parts = currentStep.getParts();
-
-        TextView text = (TextView) view.findViewById(R.id.textView);
-        String texten = "";//currentStep.getName() + "\n";
-
+        TextView textView = (TextView) view.findViewById(R.id.textView);
+        String text = "";
         for(int i = 0; i < parts.size(); i++) {
-
-            texten = texten + "\n" + currentStep.getParts().get(i).getName() + " (" + Integer.toString(currentStep.getParts().get(i).getAmount()) + ")";
-
+            text = text + "\n" + currentStep.getParts().get(i).getName() + " (" + Integer.toString(currentStep.getParts().get(i).getAmount()) + ")";
         }
-
-        text.setText(texten);
-
+        textView.setText(text);
         view.setMinimumHeight(parentHeight);
 
+        // Check button for item view
         final Button checkBtn = (Button) view.findViewById(R.id.item_checkbox);
         int color = (currentStep.isChecked()) ? context.getResources().getColor(R.color.step_done) : context.getResources().getColor(R.color.step_left);
         checkBtn.setBackgroundColor(color);
 
+        // Check button is used as a checkbox. When checked it changes color and directs to the next step.
+        // When unchecked it only changes color.
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,8 +94,12 @@ public class StepListAdapter extends ArrayAdapter<Step> {
                 Button btn = (Button) relativeLayout.findViewById(currentStep.getStepNr()-1);
                 btn.setBackgroundColor(color);
 
-                InstructionsActivity c = (InstructionsActivity) getContext();
-                c.scrollTo(currentStep.getStepNr());
+                // If checked, scroll to next step
+                if(currentStep.isChecked()) {
+
+                    InstructionsActivity activity = (InstructionsActivity) getContext();
+                    activity.scrollTo(currentStep.getStepNr());
+                }
             }
         });
         return view;

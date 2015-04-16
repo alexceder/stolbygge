@@ -2,14 +2,11 @@ package se.stolbygge.stolbygge;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -17,13 +14,13 @@ import java.util.ArrayList;
 
 public class InstructionsActivity extends Activity {
 
-
     PartListAdapter partAdapter;
     StepListAdapter stepAdapter;
     ArrayList<Part> parts;
     ArrayList<Step> steps;
     ListView partListView;
     ListView stepListView;
+    boolean fromClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,72 +31,44 @@ public class InstructionsActivity extends Activity {
 
         onCreateStepList();
 
-        /*
-        stepListView.post(new Runnable() {
-            @Override
-            public void run() {
-                stepListView.smoothScrollToPosition(4);
-            }
-        });*/
-
-        //stepListView.smoothScrollToPosition(3);
-        //stepListView.smoothScrollBy(600, 1000);
-
-        /*
         stepListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             private int lastVisibleItem = 0;
             private int firstVis = 0;
-            private boolean up = false;
             private boolean manual = false;
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                Log.d("*** first vis: ", Integer.toString(firstVis));
-                if(scrollState == SCROLL_STATE_IDLE && manual) {
-                    manual = false;
-                    if(firstVis < lastVisibleItem) {
-                        Log.d("*** Up", "");
-                        lastVisibleItem = firstVis;
-                        stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
-                    } else {
-                        Log.d("*** Down","");
-                        lastVisibleItem = firstVis+1;
-                        stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
-                    }
-                }
+                // Should only be computed if the action is from user scroll, not buttons
+                if(fromClick) {
 
+                    // Snap view to the next item in the scroll direction
+                    if(scrollState == SCROLL_STATE_IDLE && manual) {
+                        if(firstVis < lastVisibleItem) { // Up
+                            lastVisibleItem = firstVis;
+                            stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
+                            manual = false;
+                        } else { // Down
+                            lastVisibleItem = firstVis+1;
+                            stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
+                            manual = false;
+                        }
+                    }
+                    fromClick = false;
+                }
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
+                // Keep track of where the scroll is in order to know where to snap
                 if(visibleItemCount == 2) {
-                    firstVis = firstVisibleItem+1;
+                    firstVis = firstVisibleItem;
+                    manual = true;
                 }
-                manual = true;
-                Log.d("*** last first ",Integer.toString(firstVisibleItem));
-                //*
-                Log.d("*** last first ",Integer.toString(firstVisibleItem));
-                if(visibleItemCount == 2) {
-                    if (firstVisibleItem < lastVisibleItem) { //scroll up
-                        //lastVisibleItem = firstVisibleItem;
-                        up = true;
-                    } else if (firstVisibleItem >= lastVisibleItem) {
-                        //lastVisibleItem = firstVisibleItem + 1;
-                        up = false;
-                    }
-               }
-
-               if(up){
-                   lastVisibleItem = firstVisibleItem;
-               }
-                else{
-                   lastVisibleItem = firstVisibleItem + 1;
-               }//
             }
-        });*/
+        });
     }
 
     @Override
@@ -124,7 +93,7 @@ public class InstructionsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean onCreateProductList(){
+    public boolean onCreateProductList() {
 
         parts = new ArrayList<Part>();
         partAdapter = new PartListAdapter(this,R.layout.part_list_item, parts);
@@ -142,11 +111,10 @@ public class InstructionsActivity extends Activity {
         partListView = (ListView) findViewById(R.id.listview_parts);
         partListView.setAdapter(partAdapter);
 
-
         return true;
     }
 
-    public boolean onCreateStepList(){
+    public boolean onCreateStepList() {
 
         steps = new ArrayList<Step>();
         parts = new ArrayList<Part>();
@@ -183,6 +151,7 @@ public class InstructionsActivity extends Activity {
         stepListView = (ListView) findViewById(R.id.listview_steps);
         stepListView.setAdapter(stepAdapter);
 
+        // Create a list of navigation buttons
         LinearLayout buttonList = (LinearLayout) findViewById(R.id.button_list);
         for(int i = 0; i < steps.size(); i++) {
             final Button button = new Button(this);
@@ -192,6 +161,8 @@ public class InstructionsActivity extends Activity {
             button.setBackgroundColor(getResources().getColor(R.color.step_left));
             button.setText(Integer.toString(i+1));
             button.setLayoutParams(params);
+
+            // Clicking on one of the buttons redirect to that step
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -205,7 +176,7 @@ public class InstructionsActivity extends Activity {
     }
 
     public void scrollTo(int position) {
-        Log.d("*** scroll to: ", Integer.toString(position));
+        fromClick = true;
         stepListView.smoothScrollToPosition(position);
     }
 }
