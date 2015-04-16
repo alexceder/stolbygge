@@ -42,31 +42,31 @@ public class MainActivity extends ActionBarActivity{
     // The operation is to call ListActivity.class that shows and handles the product list.
     // Starts the intent.
     public void onCreateProductList(View view) {
-        Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
-        startActivity(I);
+        Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        startActivity(intent);
     }
 
     // Is called when the button "Result List" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // Starts the intent.
     public void onCreateInstructionList(View view) {//TODO implement when ready
-        //Intent I = new Intent(this, se.stolbygge.stolbygge.InstructionActivity.class);
-        //startActivity(I);
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.InstructionActivity.class);
+        //startActivity(intent);
     }
 
     // Is called when the button "Result List" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // Starts the intent.
     public void onCreateResultList(View view) { //TODO implement when ready
-        //Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
-        //startActivity(I);
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(intent);
     }
 
     // Is called when the button "AR" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // Starts the intent.
     public void onCreateAR(View view) { //TODO implement when ready
-        //Intent I = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
-        //startActivity(I);
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(intent);
     }
 }

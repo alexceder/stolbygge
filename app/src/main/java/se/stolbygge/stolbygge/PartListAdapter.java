@@ -1,24 +1,24 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class PartListAdapter extends BaseAdapter {
+public class PartListAdapter extends ArrayAdapter<Part> {
 
     private Context context;
     private ArrayList<Part> parts;
 
-    public PartListAdapter(Context context) {
+    public PartListAdapter(Context context, int resource, ArrayList<Part> parts) {
+        super(context, resource, parts);
         this.context = context;
+        this.parts = parts;
     }
 
     @Override
