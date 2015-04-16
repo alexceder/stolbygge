@@ -1,31 +1,18 @@
 package se.stolbygge.stolbygge;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.*;
+import android.view.View;
 
-import java.util.ArrayList;
-
-
-public class MainActivity extends ActionBarActivity {
-
-    PartListAdapter partadapter;
-    StepListAdapter stepadapter;
-    ArrayList<Part> parts;
-    ArrayList<Step> steps;
-    ListView partListView;
-    ListView stepListView;
+public class MainActivity extends ActionBarActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
     }
 
     @Override
@@ -50,4 +37,36 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Is called when the button "Product List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ListActivity.class that shows and handles the product list.
+    // Starts the intent.
+    public void onCreateProductList(View view) {
+        Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        startActivity(intent);
+    }
+
+    // Is called when the button "Result List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateInstructionList(View view) {//TODO implement when ready
+        Intent intent = new Intent(this, se.stolbygge.stolbygge.InstructionsActivity.class);
+        startActivity(intent);
+    }
+
+    // Is called when the button "Result List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateResultList(View view) { //TODO implement when ready
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(intent);
+    }
+
+    // Is called when the button "AR" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // Starts the intent.
+    public void onCreateAR(View view) { //TODO implement when ready
+        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
+        //startActivity(intent);
+    }
 }

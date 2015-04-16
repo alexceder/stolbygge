@@ -1,57 +1,55 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="0dp"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
-
-    <ListView
-        android:id="@+id/listview_parts"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    </ListView>
-
-    <ListView
-        android:id="@+id/listview_steps"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:smoothScrollbar="true">
-    </ListView>
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center_horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:layout_alignParentRight="true"
-        android:padding="40dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/hela_stolen"/>
+
+        <Button
+            android:id="@+id/product_list_btn"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Product List"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateProductList"/>
+
+        <Button
+            android:id="@+id/instruction_list_btn"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Instructions"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateInstructionList"/>
+
+        <Button
+            android:id="@+id/result_list_btn"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Result List"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateResultList"/>
+
+        <Button
+            android:id="@+id/ar_btn"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="AR"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateAR"/>
+
     </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>

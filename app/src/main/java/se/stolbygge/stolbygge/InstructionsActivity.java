@@ -14,11 +14,9 @@ import java.util.ArrayList;
 
 public class InstructionsActivity extends Activity {
 
-    PartListAdapter partAdapter;
     StepListAdapter stepAdapter;
     ArrayList<Part> parts;
     ArrayList<Step> steps;
-    ListView partListView;
     ListView stepListView;
     boolean fromClick = false;
 
@@ -26,8 +24,6 @@ public class InstructionsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.instructions_activity);
-
-        //onCreateProductList();
 
         onCreateStepList();
 
@@ -93,27 +89,6 @@ public class InstructionsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean onCreateProductList() {
-
-        parts = new ArrayList<Part>();
-        partAdapter = new PartListAdapter(this,R.layout.part_list_item, parts);
-
-        parts.add(new Part("Insexskruv", "1", "insexskruv", 6));
-        parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
-        parts.add(new Part("Plugg", "1", "plugg", 2));
-        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", 1));
-        parts.add(new Part("Höger benpar", "1", "hoger_benpar", 1));
-        parts.add(new Part("Sitts", "1", "sitts",1));
-        parts.add(new Part("Ryggstöd", "1", "ryggstod",1));
-        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
-
-        partAdapter.setParts(parts);
-        partListView = (ListView) findViewById(R.id.listview_parts);
-        partListView.setAdapter(partAdapter);
-
-        return true;
-    }
-
     public boolean onCreateStepList() {
 
         steps = new ArrayList<Step>();
@@ -145,9 +120,6 @@ public class InstructionsActivity extends Activity {
 
         stepAdapter.setSteps(steps);
 
-        //partListView = (ListView) findViewById(R.id.listview_parts);
-        //partListView.setAdapter(stepAdapter);
-
         stepListView = (ListView) findViewById(R.id.listview_steps);
         stepListView.setAdapter(stepAdapter);
 
@@ -171,7 +143,6 @@ public class InstructionsActivity extends Activity {
             });
             buttonList.addView(button);
         }
-
         return true;
     }
 

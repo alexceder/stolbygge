@@ -1,6 +1,8 @@
 package se.stolbygge.stolbygge;
 
-public class Part {
+import java.io.Serializable;
+
+public class Part implements Serializable {
 
     private String name;
     private String artNo;
