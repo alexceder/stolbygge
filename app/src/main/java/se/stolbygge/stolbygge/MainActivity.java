@@ -50,19 +50,18 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                Log.d("*** first vis: ",Integer.toString(firstVis));
                 if(scrollState == SCROLL_STATE_IDLE && manual) {
-                    manual = false;
-                    if(firstVis < lastVisibleItem) {
-                        Log.d("*** Up", "");
+                    if(firstVis < lastVisibleItem) { // Up
                         lastVisibleItem = firstVis;
                         stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
-                    } else {
-                        Log.d("*** Down","");
+                        manual = false;
+                    } else { // Down
                         lastVisibleItem = firstVis+1;
                         stepListView.smoothScrollToPosition(lastVisibleItem, 1000);
+                        manual = false;
                     }
                 }
+
 
             }
 
@@ -70,28 +69,9 @@ public class MainActivity extends ActionBarActivity {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 if(visibleItemCount == 2) {
-                    firstVis = firstVisibleItem+1;
+                    firstVis = firstVisibleItem;
+                    manual = true;
                 }
-                manual = true;
-                Log.d("*** last first ",Integer.toString(firstVisibleItem));
-                /*
-                Log.d("*** last first ",Integer.toString(firstVisibleItem));
-                if(visibleItemCount == 2) {
-                    if (firstVisibleItem < lastVisibleItem) { //scroll up
-                        //lastVisibleItem = firstVisibleItem;
-                        up = true;
-                    } else if (firstVisibleItem >= lastVisibleItem) {
-                        //lastVisibleItem = firstVisibleItem + 1;
-                        up = false;
-                    }
-               }
-
-               if(up){
-                   lastVisibleItem = firstVisibleItem;
-               }
-                else{
-                   lastVisibleItem = firstVisibleItem + 1;
-               }*/
             }
         });
     }
