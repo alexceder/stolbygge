@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity{
     // Creates an abstract description called intent I, with an operation to be performed.
     // Starts the intent.
     public void onCreateAR(View view) { //TODO implement when ready
-        //Intent intent = new Intent(this, se.stolbygge.stolbygge.ListActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ARActivity.class);
+        startActivity(intent);
     }
 }
