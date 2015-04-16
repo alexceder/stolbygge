@@ -3,3 +3,9 @@
 /.idea
 .DS_Store
 /build
+
+# Metaio SDK
+metaioSDK
+
+# This might be too much of a wildcard
+signature.xml
