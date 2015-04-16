@@ -35,7 +35,7 @@ public class ListActivity extends ActionBarActivity {
         partListView = (ListView) findViewById(R.id.listview);
 
         parts = new ArrayList<Part>();
-        adapter = new PartListAdapter(this);
+        adapter = new PartListAdapter(this, R.layout.part_list, parts);
 
         parts.add(new Part("Insexskruv", "1", "insexskruv",6));
         parts.add(new Part("Insexnyckel", "1", "insexnyckel", 1));
