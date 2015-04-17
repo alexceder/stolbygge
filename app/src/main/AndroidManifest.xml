@@ -43,7 +43,8 @@
         </activity>
         <activity
             android:name=".InstructionsActivity"
-            android:label="@string/title_activity_instructions" >
+            android:label="@string/title_activity_instructions"
+            android:theme="@style/InstructionsTheme">
         </activity>
         <activity
             android:name=".ARActivity"
@@ -58,6 +59,4 @@
             android:label="AR Instructions View" >
         </activity>
     </application>
-
-
 </manifest>

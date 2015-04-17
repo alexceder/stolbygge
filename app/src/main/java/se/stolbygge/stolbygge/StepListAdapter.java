@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,8 +49,6 @@ public class StepListAdapter extends ArrayAdapter<Step> {
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
         View view;
-        final Step currentStep = steps.get(position);
-        ArrayList<Part> parts = currentStep.getParts();
 
         if(convertView == null) {
             view = LayoutInflater.from(context).inflate(resource,null);
@@ -58,22 +57,27 @@ public class StepListAdapter extends ArrayAdapter<Step> {
             view = convertView;
         }
 
+        final Step currentStep = steps.get(position);
+        ArrayList<Part> parts = currentStep.getParts();
         int parentHeight = parent.getHeight();
 
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
-        int imgId = context.getResources().getIdentifier(currentStep.getImgName(), "drawable", context.getPackageName());
-        img.setImageResource(imgId);
-
         TextView textView = (TextView) view.findViewById(R.id.textView);
+        final ImageView checkBtn = (ImageView) view.findViewById(R.id.item_checkbox);
+
+        // Instruction image
+        img.setImageResource(context.getResources().getIdentifier(currentStep.getImgName(), "drawable", context.getPackageName()));
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) new LinearLayout.LayoutParams(parentHeight-100, parentHeight-100); // 100 for margin TODO remove numbers from images to gain space
+        img.setLayoutParams(params);
+
+        // Part list
         String text = "";
         for(int i = 0; i < parts.size(); i++) {
             text = text + "\n" + currentStep.getParts().get(i).getName() + " (" + Integer.toString(currentStep.getParts().get(i).getAmount()) + ")";
         }
         textView.setText(text);
-        view.setMinimumHeight(parentHeight);
 
         // Check button for item view
-        final Button checkBtn = (Button) view.findViewById(R.id.item_checkbox);
         int color = (currentStep.isChecked()) ? context.getResources().getColor(R.color.bgc_done) : context.getResources().getColor(R.color.bgc_progressbar_unvisited);
         checkBtn.setBackgroundColor(color);
 
@@ -105,4 +109,3 @@ public class StepListAdapter extends ArrayAdapter<Step> {
         return view;
     }
 }
-
