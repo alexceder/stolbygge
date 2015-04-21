@@ -44,6 +44,10 @@
             android:name=".ARActivity"
             android:label="ARActivity" >
         </activity>
+        <activity
+            android:name=".ModelView"
+            android:label="Model View" >
+        </activity>
     </application>
 
 
