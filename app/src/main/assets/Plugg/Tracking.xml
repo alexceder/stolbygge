@@ -15,7 +15,7 @@
 						"initialize_once"  : initializes only once with edge initialization, then continue with feature tracking; use for incomplete models, 2D models or other models not reliably trackable with edges
 						"edge_only"        : Initialize and track only with edges only. Same behavior as EdgeBasedTrackingSensor. Use for model centered tracking with highly dynamic environment.
 						-->
-                    <Mode>hybrid</Mode>
+                    <Mode>edge_only</Mode>
                     <!-- Result configuration
 						"edge" (default)   : prefer edge pose when edge tracking succeeded; choose for poorly textured environments and good edge model
 						"edge_if_good"     : prefer edge pose only when edge tracking was good, feature result otherwise; use when tracking quality varies strongly from different angles or EdgeTracking/MinQuality threshold has to be set very low
