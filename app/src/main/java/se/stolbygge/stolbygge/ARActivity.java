@@ -46,7 +46,7 @@ public class ARActivity extends ARViewActivity {
     //Not currently used, needed to extend ARViewActivity
     @Override
     protected int getGUILayout() {
-        return 0;
+        return R.layout.ar_interaction;
     }
 
     @Override
