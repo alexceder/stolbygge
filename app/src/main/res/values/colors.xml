@@ -4,4 +4,5 @@
     <item name="step_left" type="color">#884444</item>
     <item name="yellow" type="color">#999900</item>
     <item name="blue" type="color">#0000ff</item>
+    <item name="white" type="color">#fff</item>
 </resources>
