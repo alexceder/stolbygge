@@ -1,6 +1,7 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class PartListAdapter extends ArrayAdapter<Part> {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        Part currentPart = parts.get(position);
+        final Part currentPart = parts.get(position);
         View view;
 
         if (convertView == null) {
@@ -53,12 +54,28 @@ public class PartListAdapter extends ArrayAdapter<Part> {
             view = convertView;
         }
 
-        ImageView img = (ImageView) view.findViewById(R.id.image_view);
-        int id = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
-        img.setImageResource(id);
+        ImageView partImage = (ImageView) view.findViewById(R.id.part_image);
+        int imgId = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
+        partImage.setImageResource(imgId);
 
-        TextView text = (TextView) view.findViewById(R.id.text_view);
+        TextView text = (TextView) view.findViewById(R.id.part_text);
         text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
+
+        final ImageView checkboxImage = (ImageView) view.findViewById(R.id.part_checkbox);
+        String imgSource = (currentPart.isFound()) ? "checkbox_checked" : "checkbox_unchecked";
+        imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
+        checkboxImage.setImageResource(imgId);
+
+        checkboxImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean found = (currentPart.isFound()) ? false : true;
+                currentPart.setFound(found);
+                String imgSource = (currentPart.isFound()) ? "checkbox_checked" : "checkbox_unchecked";
+                int imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
+                checkboxImage.setImageResource(imgId);
+            }
+        });
 
         return view;
     }
