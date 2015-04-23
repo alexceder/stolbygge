@@ -1,5 +1,7 @@
 package se.stolbygge.stolbygge;
 
+import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -7,17 +9,18 @@ import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.Vector2d;
+import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ModelView extends ARViewActivity{
+public class ModelView extends ARViewActivity {
 
-    /**
-     * kritter model
-     */
-    private IGeometry model3D = null;
+    //kritter model
+    private IGeometry model3D;
+    private Vector2d mMidPoint;
 
     //Metaio SDK Callback handler
     private IMetaioSDKCallback mCallbackHandler;
@@ -26,6 +29,8 @@ public class ModelView extends ARViewActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        model3D = null;
+        mMidPoint = new Vector2d();
         mCallbackHandler = new IMetaioSDKCallback();
     }
 
@@ -62,7 +67,7 @@ public class ModelView extends ARViewActivity{
         }
 
         // Load the model
-        model3D = loadModel("star.obj");
+        model3D = loadModel("check_green.obj");
 
         // Check that model not null
         if(model3D != null) {
@@ -72,6 +77,10 @@ public class ModelView extends ARViewActivity{
             Log.d("*ModelView*", "Model not loaded!");
         }
 
+        // Scale the model
+        model3D.setScale(4.0f);
+        //Vector3d translation = metaioSDK.get3DPositionFromViewportCoordinates(1, mMidPoint);
+        //model3D.setTranslation(translation);
     }
 
     // Loads tracking model
@@ -92,6 +101,16 @@ public class ModelView extends ARViewActivity{
         return geometry;
     }
 
+    @Override
+	public void onSurfaceChanged(int width, int height)
+	{
+		super.onSurfaceChanged(width, height);
+
+		// Update mid point of the view
+		mMidPoint.setX(width / 2f);
+		mMidPoint.setY(height / 2f);
+	}
+
     //TODO: For handling on touch events
     @Override
     protected void onGeometryTouched(IGeometry geometry) {
@@ -99,3 +118,5 @@ public class ModelView extends ARViewActivity{
     }
 
 }
+
+
