@@ -1,7 +1,9 @@
 package se.stolbygge.stolbygge;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +46,8 @@ public class PartListFragment extends Fragment {
         parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
 
         adapter.setParts(parts);
-
         partListView.setAdapter(adapter);
+
         return rootView;
     }
 }

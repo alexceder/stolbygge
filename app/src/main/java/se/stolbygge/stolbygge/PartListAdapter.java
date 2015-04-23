@@ -19,7 +19,7 @@ public class PartListAdapter extends ArrayAdapter<Part> {
 
     public PartListAdapter(Context context, int resource, ArrayList<Part> parts) {
         super(context, resource, parts);
-        this.context = context;
+        this.context = (ARActivity) context;
         this.resource = resource;
         this.parts = parts;
     }
@@ -66,6 +66,8 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
         checkboxImage.setImageResource(imgId);
 
+        final ARActivity activity = (ARActivity) context;
+
         checkboxImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,8 @@ public class PartListAdapter extends ArrayAdapter<Part> {
                 String imgSource = (currentPart.isFound()) ? "checkbox_checked" : "checkbox_unchecked";
                 int imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
                 checkboxImage.setImageResource(imgId);
+
+                activity.onClickPosition(position);
             }
         });
 
