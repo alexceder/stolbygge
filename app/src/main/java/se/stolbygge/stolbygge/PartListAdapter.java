@@ -71,12 +71,9 @@ public class PartListAdapter extends ArrayAdapter<Part> {
             public void onClick(View v) {
                 boolean found = (currentPart.isFound()) ? false : true;
                 currentPart.setFound(found);
-                Log.d("***", "onclick");
-
                 String imgSource = (currentPart.isFound()) ? "checkbox_checked" : "checkbox_unchecked";
                 int imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
                 checkboxImage.setImageResource(imgId);
-
             }
         });
 
