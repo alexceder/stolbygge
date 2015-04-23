@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.metaio.sdk.ARViewActivity;
+import com.metaio.sdk.GestureHandlerAndroid;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.GestureHandler;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
@@ -21,7 +25,8 @@ public class ModelView extends ARViewActivity {
 
     //kritter model
     private IGeometry modelOnScreen;
-    private Vector2d mMidPoint;
+    private GestureHandlerAndroid mGestureHandler;
+    private int mGestureMask;
 
     //Metaio SDK Callback handler
     private IMetaioSDKCallback mCallbackHandler;
@@ -31,8 +36,9 @@ public class ModelView extends ARViewActivity {
         super.onCreate(savedInstanceState);
 
         modelOnScreen = null;
-        mMidPoint = new Vector2d();
         mCallbackHandler = new IMetaioSDKCallback();
+        mGestureMask = GestureHandler.GESTURE_ALL;
+        mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
     }
 
     @Override
@@ -40,6 +46,19 @@ public class ModelView extends ARViewActivity {
         super.onDestroy();
         mCallbackHandler.delete();
         mCallbackHandler = null;
+        mGestureHandler.delete();
+        mGestureHandler = null;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        super.onTouch(v, event);
+
+        mGestureHandler.setRotationAxis('y');
+        mGestureHandler.onTouch(v, event);
+
+        return true;
     }
 
     @Override
@@ -72,20 +91,19 @@ public class ModelView extends ARViewActivity {
 
         // Check that model not null
         if(modelOnScreen != null) {
-
             modelOnScreen.setCoordinateSystemID(0);
+            // Anchors the model in front of camera
             modelOnScreen.setRelativeToScreen(IGeometry.ANCHOR_CC);
-            modelOnScreen.setScale(new Vector3d(1.8f, 1.8f, 1.8f) );
+            // Should be scaled according to size of device instead.
+            modelOnScreen.setScale(new Vector3d(1.6f, 1.6f, 1.6f) );
             modelOnScreen.setRotation(new Rotation(0.0f, 2.0f, 0.0f),true);
+
+            mGestureHandler.addObject(modelOnScreen, 1);
 
         } else {
             Log.d("*ModelView*", "Model not loaded!");
         }
-
-
     }
-
-
 
     // Loads tracking model, returns an IGeometry
     private IGeometry loadModel(final String pathToModel) {
@@ -104,17 +122,7 @@ public class ModelView extends ARViewActivity {
         return geometry;
     }
 
-    @Override
-	public void onSurfaceChanged(int width, int height)
-	{
-		super.onSurfaceChanged(width, height);
-
-		// Update mid point of the view
-		//mMidPoint.setX(width / 2f);
-		//mMidPoint.setY(height / 2f);
-	}
-
-    //TODO: For handling on touch events
+    // Needs to exist to make ARViewActivity happy.
     @Override
     protected void onGeometryTouched(IGeometry geometry) {
 
