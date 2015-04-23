@@ -56,12 +56,12 @@ public class ARActivity extends ARViewActivity {
 
         // TODO: You can do better!
         parts = new ArrayList<>();
-        parts.add(new Part("Plugg", "1", "plugg", 1));
-        parts.add(new Part("Ryggstod", "2", "ryggstod", 1));
-        parts.add(new Part("Ryggtopp", "3", "ryggtopp", 1));
-        parts.add(new Part("Sida", "4", "sida", 1));
-        parts.add(new Part("Sits", "5", "sits", 1));
-        parts.add(new Part("Skruv", "6", "skruv", 1));
+        parts.add(new Part("Plugg", "1", "plugg", "plugg", 2));
+        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", "sida", 1));
+        parts.add(new Part("Sitts", "1", "sitts", "sits", 1));
+        parts.add(new Part("Ryggstöd", "1", "ryggstod", "ryggtopp", 1));
+        parts.add(new Part("Höger benpar", "1", "hoger_benpar", "sida", 1));
+        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", "ryggstod", 1));
 
         current = 0;
     }
@@ -88,14 +88,6 @@ public class ARActivity extends ARViewActivity {
      * {@inheritDoc}
      */
     @Override
-    protected int getGUILayout() {
-        return R.layout.part_list_fragment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     protected void loadContents() {
         try {
             // Extract all assets and overwrite existing files if debug build
@@ -110,8 +102,8 @@ public class ARActivity extends ARViewActivity {
 
         // Initialize all geometries and hide them.
         for (Part part : parts) {
-            IGeometry correct = loadModel(part.getName() + "/" + part.getImgName() + "_correct.obj");
-            IGeometry aid = loadModel(part.getName() + "/" + part.getImgName() + "_surface.obj");
+            IGeometry correct = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_correct.obj");
+            IGeometry aid = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_surface.obj");
 
             correct.setVisible(false);
             aid.setVisible(false);
@@ -120,7 +112,15 @@ public class ARActivity extends ARViewActivity {
             aid_geometries.add(aid);
         }
 
-        setModel(0, 0);
+        setModel(current, current);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected int getGUILayout() {
+        return R.layout.part_list_fragment;
     }
 
     /**
@@ -173,13 +173,13 @@ public class ARActivity extends ARViewActivity {
     /**
      * Event handler when overlay button is clicked.
      *
-     * @param position int
+     * @param position int - what to move to
      */
     public void onClickPosition(int position) {
         int last = current;
-        int current = position;
+        current = position;
 
-        if (current < parts.size()) {
+        if (current < parts.size() && last < parts.size()) {
             setModel(last, current);
         } else {
             Log.d("ARActivity", "At the end of the list -- show dialog or something!");
@@ -210,7 +210,7 @@ public class ARActivity extends ARViewActivity {
         aid_geometries.get(next).setCoordinateSystemID(2);
 
         // Set configuration
-        setTrackingConfiguration(part.getName() + "/" + part.getImgName() + "_tracking.xml");
+        setTrackingConfiguration(part.getGeometry() + "/" + part.getGeometry() + "_tracking.xml");
 
         // All this updates the activity, there is no explicit reload.
     }
@@ -242,8 +242,9 @@ public class ARActivity extends ARViewActivity {
                 final TrackingValues v = trackingValues.get(i);
                 if (v.getCoordinateSystemID() == 1 && v.getState() == ETRACKING_STATE.ETS_FOUND) {
                     Log.d("ARActivity", "hittade object!");
+                    PartListFragment partListFragment = (PartListFragment) getFragmentManager().findFragmentById(R.id.item_list);
+                    partListFragment.onFound(current);
                     onClickNext();
-                    FragmentManager fm = getFragmentManager();
                 }
             }
         }
