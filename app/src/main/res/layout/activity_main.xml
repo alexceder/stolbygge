@@ -59,5 +59,13 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onCreateModelView"/>
 
+        <Button
+            android:id="@+id/ar_instructions_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="AR Instructions View"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateARInstructionsView"/>
+
     </LinearLayout>
 </ScrollView>
