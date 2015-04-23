@@ -9,6 +9,7 @@ import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector2d;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class ModelView extends ARViewActivity {
 
     //kritter model
-    private IGeometry model3D;
+    private IGeometry modelOnScreen;
     private Vector2d mMidPoint;
 
     //Metaio SDK Callback handler
@@ -29,7 +30,7 @@ public class ModelView extends ARViewActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        model3D = null;
+        modelOnScreen = null;
         mMidPoint = new Vector2d();
         mCallbackHandler = new IMetaioSDKCallback();
     }
@@ -66,24 +67,27 @@ public class ModelView extends ARViewActivity {
             MetaioDebug.printStackTrace(Log.ERROR, e);
         }
 
-        // Load the model
-        model3D = loadModel("check_green.obj");
+        //Load model
+        modelOnScreen = loadModel("kritter.obj");
 
         // Check that model not null
-        if(model3D != null) {
-            // Unique id for every object
-            model3D.setCoordinateSystemID(1);
+        if(modelOnScreen != null) {
+
+            modelOnScreen.setCoordinateSystemID(0);
+            modelOnScreen.setRelativeToScreen(IGeometry.ANCHOR_CC);
+            modelOnScreen.setScale(new Vector3d(1.8f, 1.8f, 1.8f) );
+            modelOnScreen.setRotation(new Rotation(0.0f, 2.0f, 0.0f),true);
+
         } else {
             Log.d("*ModelView*", "Model not loaded!");
         }
 
-        // Scale the model
-        model3D.setScale(4.0f);
-        //Vector3d translation = metaioSDK.get3DPositionFromViewportCoordinates(1, mMidPoint);
-        //model3D.setTranslation(translation);
+
     }
 
-    // Loads tracking model
+
+
+    // Loads tracking model, returns an IGeometry
     private IGeometry loadModel(final String pathToModel) {
 
         IGeometry geometry = null;
@@ -91,7 +95,6 @@ public class ModelView extends ARViewActivity {
         try {
             // get the file from given path
             final File fModelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToModel);
-
             geometry = metaioSDK.createGeometry(fModelPath);
             Log.d("ARActivity", "in loadModel: loaded!" + fModelPath);
         }catch(Exception e) {
@@ -107,8 +110,8 @@ public class ModelView extends ARViewActivity {
 		super.onSurfaceChanged(width, height);
 
 		// Update mid point of the view
-		mMidPoint.setX(width / 2f);
-		mMidPoint.setY(height / 2f);
+		//mMidPoint.setX(width / 2f);
+		//mMidPoint.setY(height / 2f);
 	}
 
     //TODO: For handling on touch events

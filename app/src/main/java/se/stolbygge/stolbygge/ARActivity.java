@@ -76,6 +76,9 @@ public class ARActivity extends ARViewActivity {
             Log.d("ARActivity", "Model not loaded!");
         }
 
+        //Scale the checker
+        mCheckmark.setScale(5.0f);
+
         /*
             Ändra till rätt fil! Ryggstod, Ryggtopp, Sida, Sits, Plugg eller Skruv, /Tracking.xml.
             Alla går att hitta, vissa med mer jobb än andra.
