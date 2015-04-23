@@ -8,6 +8,7 @@ public class Part implements Serializable {
     private String artNo;
     private String imgName;
     private int amount;
+    private boolean isFound;
 
     // noob constructor for starters
     public Part() {
@@ -39,6 +40,10 @@ public class Part implements Serializable {
         return imgName;
     }
 
+    public boolean isFound() {
+        return isFound;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -53,5 +58,9 @@ public class Part implements Serializable {
 
     public void setImgName(String imgName) {
         this.imgName = imgName;
+    }
+
+    public void setFound(boolean isFound) {
+        this.isFound = isFound;
     }
 }
