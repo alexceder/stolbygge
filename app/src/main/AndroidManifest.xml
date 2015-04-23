@@ -15,6 +15,9 @@
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- In order to use the OpenGL ES 2.0 API -->
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -43,6 +46,10 @@
         <activity
             android:name=".ARActivity"
             android:label="ARActivity" >
+        </activity>
+        <activity
+            android:name=".ModelView"
+            android:label="Model View" >
         </activity>
     </application>
 

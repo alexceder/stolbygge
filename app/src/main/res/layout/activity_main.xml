@@ -51,5 +51,13 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onCreateAR"/>
 
+        <Button
+            android:id="@+id/model_view_btn"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Model View"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateModelView"/>
+
     </LinearLayout>
 </ScrollView>
