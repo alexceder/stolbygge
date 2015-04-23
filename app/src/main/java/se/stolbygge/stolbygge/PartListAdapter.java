@@ -1,6 +1,7 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ public class PartListAdapter extends ArrayAdapter<Part> {
     protected Context context;
     protected ArrayList<Part> parts;
     protected int resource;
+    public int current = 0;
 
     public PartListAdapter(Context context, int resource, ArrayList<Part> parts) {
         super(context, resource, parts);
@@ -54,6 +56,14 @@ public class PartListAdapter extends ArrayAdapter<Part> {
             view = convertView;
         }
 
+        if (position == current) {
+            view.setBackgroundColor(Color.YELLOW);
+        } else if (currentPart.isFound()) {
+            view.setBackgroundColor(Color.GREEN);
+        } else {
+            view.setBackgroundColor(Color.WHITE);
+        }
+
         ImageView partImage = (ImageView) view.findViewById(R.id.part_image);
         int imgId = context.getResources().getIdentifier(currentPart.getImgName(), "drawable", context.getPackageName());
         partImage.setImageResource(imgId);
@@ -66,14 +76,30 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
         checkboxImage.setImageResource(imgId);
 
+        final ARActivity activity = (ARActivity) context;
+
         checkboxImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean found = (currentPart.isFound()) ? false : true;
-                currentPart.setFound(found);
+
+                current = (currentPart.isFound()) ? position : position+1;
+
+                currentPart.setFound(!currentPart.isFound());
                 String imgSource = (currentPart.isFound()) ? "checkbox_checked" : "checkbox_unchecked";
                 int imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
                 checkboxImage.setImageResource(imgId);
+
+                activity.onClickPosition(current);
+                notifyDataSetChanged();
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                current = position;
+                activity.onClickPosition(current);
+                notifyDataSetChanged();
             }
         });
 

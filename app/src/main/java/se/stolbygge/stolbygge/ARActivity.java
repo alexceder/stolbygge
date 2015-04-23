@@ -1,36 +1,74 @@
 package se.stolbygge.stolbygge;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.metaio.sdk.jni.ETRACKING_STATE;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
+import com.metaio.sdk.jni.TrackingValues;
+import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.tools.io.AssetsManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ARActivity extends ARViewActivity {
 
     /**
-     * kritter model
+     * A list of parts and its data.
      */
-    private IGeometry mCheckmark = null;
+    private ArrayList<Part> parts;
+
+    /**
+     * Store the current model to view.
+     */
+    private int current;
+
+    /**
+     * A list of correct geometries.
+     */
+    private ArrayList<IGeometry> correct_geometries;
+
+    /**
+     * A list of visual aid geometries.
+     */
+    private ArrayList<IGeometry> aid_geometries;
 
     /**
      * Metaio SDK Callback handler
      */
-    private IMetaioSDKCallback mCallbackHandler;
+    private FoundObjectCallback mCallbackHandler;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCallbackHandler = new IMetaioSDKCallback();
+        mCallbackHandler = new FoundObjectCallback();
+
+        // TODO: You can do better!
+        parts = new ArrayList<>();
+        parts.add(new Part("Plugg", "1", "plugg", "plugg", 2));
+        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", "sida", 1));
+        parts.add(new Part("Sitts", "1", "sitts", "sits", 1));
+        parts.add(new Part("Ryggstöd", "1", "ryggstod", "ryggtopp", 1));
+        parts.add(new Part("Höger benpar", "1", "hoger_benpar", "sida", 1));
+        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", "ryggstod", 1));
+
+        current = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -38,97 +76,177 @@ public class ARActivity extends ARViewActivity {
         mCallbackHandler = null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
         return mCallbackHandler;
     }
 
-    //Not currently used, needed to extend ARViewActivity
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void loadContents() {
+        try {
+            // Extract all assets and overwrite existing files if debug build
+            AssetsManager.extractAllAssets(getApplicationContext(), BuildConfig.DEBUG);
+        } catch (IOException e) {
+            MetaioDebug.log(Log.ERROR, "Error extracting assets: " + e.getMessage());
+            MetaioDebug.printStackTrace(Log.ERROR, e);
+        }
+
+        correct_geometries = new ArrayList<>();
+        aid_geometries = new ArrayList<>();
+
+        // Initialize all geometries and hide them.
+        for (Part part : parts) {
+            IGeometry correct = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_correct.obj");
+            IGeometry aid = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_surface.obj");
+
+            correct.setVisible(false);
+            aid.setVisible(false);
+
+            correct_geometries.add(correct);
+            aid_geometries.add(aid);
+        }
+
+        setModel(current, current);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected int getGUILayout() {
         return R.layout.part_list_fragment;
     }
 
-    @Override
-    protected void loadContents() {
-
-        //We extract all the assets from the app and let metaio access them.
-        try
-        {
-            // Extract all assets and overwrite existing files if debug build
-            AssetsManager.extractAllAssets(getApplicationContext(), BuildConfig.DEBUG);
-        }
-        catch (IOException e)
-        {
-            MetaioDebug.log(Log.ERROR, "Error extracting assets: "+e.getMessage());
-            MetaioDebug.printStackTrace(Log.ERROR, e);
-        }
-
-        // May need a "VIZAID" to find contour
-        // Load the model
-        mCheckmark = loadModel("check_green.obj");
-
-        // Check that model not null
-        if(mCheckmark != null) {
-            // Unique id for every object
-            mCheckmark.setCoordinateSystemID(1);
-        } else {
-            Log.d("ARActivity", "Model not loaded!");
-        }
-
-        //Scale the checker
-        mCheckmark.setScale(5.0f);
-
-        /*
-            Ändra till rätt fil! Ryggstod, Ryggtopp, Sida, Sits, Plugg eller Skruv, /Tracking.xml.
-            Alla går att hitta, vissa med mer jobb än andra.
-        */
-        setTrackingConfiguration("Ryggstod/Tracking.xml");
-    }
-
-    // Sets all parameters needed for tracking
+    /**
+     * Set the current configuration.
+     *
+     * @param pathToXml final String
+     * @return boolean
+     */
     private boolean setTrackingConfiguration(final String pathToXml) {
         boolean result = false;
-        try
-        {
-            MetaioDebug.log("Hopefully this worked, loaded from:  " + pathToXml);
+
+        try {
             final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToXml);
             result = metaioSDK.setTrackingConfiguration(xmlPath);
-            MetaioDebug.log("Hopefully this worked, loaded from:  " + xmlPath);
+        } catch (Exception e) {
+            Log.d("ARActivity", "Configuration XML not loaded: " + pathToXml);
+        }
 
-        }
-        catch (Exception e)
-        {
-            MetaioDebug.log("SOMETHINGW WENT SHITFACE" + pathToXml);
-            return result;
-        }
         return result;
     }
 
-    //Not currently used, needed to extend ARViewActivity
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onGeometryTouched(IGeometry geometry) {
+        switch (geometry.getCoordinateSystemID()) {
+            case 1:
+                // Do something when clicking green geomtry
+                break;
 
+            default:
+                break;
+        }
     }
 
-    // Loads tracking model
-    private IGeometry loadModel(final String pathToModel) {
+    /**
+     * Event handler when overlay button is clicked.
+     */
+    public void onClickNext() {
+        int last = current++;
 
+        if (current < parts.size()) {
+            setModel(last, current);
+        } else {
+            Log.d("ARActivity", "At the end of the list -- show dialog or something!");
+        }
+    }
+
+    /**
+     * Event handler when overlay button is clicked.
+     *
+     * @param position int - what to move to
+     */
+    public void onClickPosition(int position) {
+        int last = current;
+        current = position;
+
+        if (current < parts.size() && last < parts.size()) {
+            setModel(last, current);
+        } else {
+            Log.d("ARActivity", "At the end of the list -- show dialog or something!");
+        }
+    }
+
+    /**
+     * Set the current model.
+     *
+     * @param last int
+     * @param next int
+     */
+    private void setModel(int last, int next) {
+        Part part = parts.get(next);
+
+        // Hide current
+        if (last != next) {
+            correct_geometries.get(last).setVisible(false);
+            aid_geometries.get(last).setVisible(false);
+        }
+
+        // Show next
+        correct_geometries.get(next).setVisible(true);
+        aid_geometries.get(next).setVisible(true);
+
+        // Set coordinate systems
+        correct_geometries.get(next).setCoordinateSystemID(1);
+        aid_geometries.get(next).setCoordinateSystemID(2);
+
+        // Set configuration
+        setTrackingConfiguration(part.getGeometry() + "/" + part.getGeometry() + "_tracking.xml");
+
+        // All this updates the activity, there is no explicit reload.
+    }
+
+    /**
+     * Load a single model from assets and create geometry
+     *
+     * @param pathToModel String
+     * @return IGeometry
+     */
+    private IGeometry loadModel(final String pathToModel) {
         IGeometry geometry = null;
 
         try {
-            // get the file from given path
             final File fModelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToModel);
-            // creates a object of the given file
-
-            //getAssets().
-
             geometry = metaioSDK.createGeometry(fModelPath);
-            Log.d("ARActivity", "in loadModel: loaded!" + fModelPath);
-        }catch(Exception e) {
-            Log.d("ARActivity", "in loadModel: not loaded" + pathToModel);
-            return geometry;
+        } catch (Exception e) {
+            Log.d("ARActivity", "Model not loaded: " + pathToModel);
         }
+
         return geometry;
+    }
+
+    final class FoundObjectCallback extends IMetaioSDKCallback {
+
+        @Override
+        public void onTrackingEvent(TrackingValuesVector trackingValues) {
+            for (int i = 0; i < trackingValues.size(); i++) {
+                final TrackingValues v = trackingValues.get(i);
+                if (v.getCoordinateSystemID() == 1 && v.getState() == ETRACKING_STATE.ETS_FOUND) {
+                    Log.d("ARActivity", "hittade object!");
+                    PartListFragment partListFragment = (PartListFragment) getFragmentManager().findFragmentById(R.id.item_list);
+                    partListFragment.onFound(current);
+                    onClickNext();
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ public class Part implements Serializable {
     private String name;
     private String artNo;
     private String imgName;
+    private String geometry;
     private int amount;
     private boolean isFound;
 
@@ -15,6 +16,14 @@ public class Part implements Serializable {
         this.name = "Skruv";
         this.artNo = "1337";
         this.amount = 7;
+    }
+
+    public Part(String name, String artNo, String imgName, String geometry, int amount) {
+        this.name = name;
+        this.artNo = artNo;
+        this.imgName = imgName;
+        this.geometry = geometry;
+        this.amount = amount;
     }
 
     public Part(String name, String artNo, String imgName, int amount) {
@@ -44,6 +53,10 @@ public class Part implements Serializable {
         return isFound;
     }
 
+    public void setGeometry(String geometry) {
+        this.geometry = geometry;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -62,5 +75,9 @@ public class Part implements Serializable {
 
     public void setFound(boolean isFound) {
         this.isFound = isFound;
+    }
+
+    public String getGeometry() {
+        return geometry;
     }
 }
