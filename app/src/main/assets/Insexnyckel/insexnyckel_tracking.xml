@@ -63,10 +63,10 @@
 						<UseSensorsForPoseCreation>off</UseSensorsForPoseCreation>			
 						
 						<!-- Surface model wavefront-obj file to use for occlusion and initialization of feature tracking -->
-						<TriangleMesh>skruv_surface.obj</TriangleMesh>
+						<TriangleMesh>insexnyckel_surface.obj</TriangleMesh>
 						
 						<!-- Initial Pose Configuration -->
-						<InitialPose>skruv_InitialPose.xml</InitialPose>
+						<InitialPose>insexnyckel_InitialPose.xml</InitialPose>
 						
 						<!-- <Latitude> and <Longitude> for GPS based initialization -->
 						<!-- <OriginCoordinates/> -->
@@ -81,7 +81,7 @@
 							<!-- General parameters -->
 							
 							<!-- Line model .obj file -->
-							<LineModel>skruv_line.obj</LineModel>
+							<LineModel>insexnyckel_line.obj</LineModel>
 							
 							<!-- Renders internal values to screen. Useful to tune parameters
 								"off", "model", "normals", "normals_and_matches", "points", "points_tested", "bounding_boxes" -->
