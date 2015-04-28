@@ -74,4 +74,9 @@ public class MainActivity extends ActionBarActivity{
         Intent intent = new Intent(this, ModelView.class);
         startActivity(intent);
     }
+
+    public void onCreateARAssemble(View view) { //TODO implement when ready
+        Intent intent = new Intent(this, ARAssembleActivity.class);
+        startActivity(intent);
+    }
 }
