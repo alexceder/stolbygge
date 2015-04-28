@@ -51,6 +51,10 @@
             android:name=".ModelView"
             android:label="Model View" >
         </activity>
+        <activity
+            android:name=".ARAssembleActivity"
+            android:label="Assemble" >
+        </activity>
     </application>
 
 
