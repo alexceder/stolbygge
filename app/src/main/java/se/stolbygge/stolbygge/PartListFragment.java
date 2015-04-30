@@ -34,19 +34,9 @@ public class PartListFragment extends Fragment {
 
         partListView = (ListView) rootView.findViewById(R.id.list_view);
 
-        parts = new ArrayList<>();
-        adapter = new PartListAdapter(this.getActivity(), R.layout.part_list_item, parts);
+        ArrayList<Part> findableParts = Store.getInstance().getFindableParts();
+        adapter = new PartListAdapter(this.getActivity(), R.layout.part_list_item, findableParts);
 
-        //parts.add(new Part("Insexskruv", "1", "insexskruv", "", 6));
-        //parts.add(new Part("Insexnyckel", "1", "insexnyckel", "", 1));
-        parts.add(new Part("Plugg", "1", "plugg", "plugg", 2));
-        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", "sida", 1));
-        parts.add(new Part("Sitts", "1", "sitts", "sits", 1));
-        parts.add(new Part("Ryggstöd", "1", "ryggstod", "ryggstod", 1));
-        parts.add(new Part("Höger benpar", "1", "hoger_benpar", "sida", 1));
-        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", "ryggstopp", 1));
-
-        adapter.setParts(parts);
         partListView.setAdapter(adapter);
 
         return rootView;
