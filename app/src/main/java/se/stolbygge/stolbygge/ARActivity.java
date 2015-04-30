@@ -1,17 +1,22 @@
 package se.stolbygge.stolbygge;
 
 import android.app.FragmentManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.metaio.sdk.jni.ELIGHT_TYPE;
 import com.metaio.sdk.jni.ETRACKING_STATE;
+import com.metaio.sdk.jni.ILight;
+import com.metaio.sdk.jni.IMetaioSDKAndroid;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.TrackingValues;
 import com.metaio.sdk.jni.TrackingValuesVector;
+import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 import java.io.File;
@@ -39,6 +44,16 @@ public class ARActivity extends ARViewActivity {
      * A list of visual aid geometries.
      */
     private ArrayList<IGeometry> aid_geometries;
+
+    /**
+     *  Variable to store light
+     */
+    private ILight mDirectionalLight;
+
+    /**
+     *
+     */
+    private Camera camera;
 
     /**
      * Metaio SDK Callback handler
@@ -105,6 +120,9 @@ public class ARActivity extends ARViewActivity {
             IGeometry correct = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_correct.obj");
             IGeometry aid = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_surface.obj");
 
+            correct.setDynamicLightingEnabled(true);
+            aid.setDynamicLightingEnabled(true);
+
             correct.setVisible(false);
             aid.setVisible(false);
 
@@ -113,6 +131,16 @@ public class ARActivity extends ARViewActivity {
         }
 
         setModel(current, current);
+
+        // Setup directional light
+        mDirectionalLight = metaioSDK.createLight();
+        mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
+        mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // slightly green
+        mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // orange
+        mDirectionalLight.setCoordinateSystemID(2);
+
+
+
     }
 
     /**
@@ -248,5 +276,19 @@ public class ARActivity extends ARViewActivity {
                 }
             }
         }
+    }
+
+    /**
+     *  Everytime the surface changes update the focus of the camera
+     * @param width
+     * @param height
+     */
+    @Override
+    public void onSurfaceChanged(int width, int height)
+    {
+        camera = IMetaioSDKAndroid.getCamera(this);
+        Camera.Parameters params = camera.getParameters();
+        params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        camera.setParameters(params);
     }
 }
