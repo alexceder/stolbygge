@@ -12,15 +12,15 @@
                 <Parameters>
                     <Pose>
                         <Translation>
-                            <x>-15.50099945</x>
+                            <x>-30.50099945</x>
                             <y>-8.72044184</y>
                             <z>-589.03881631</z>
                         </Translation>
                         <Rotation>
-                            <x>-0.37174803</x>
-                            <y>0.37174803</y>
-                            <z>0.60150096</z>
-                            <w>0.60150096</w>
+                            <x>0</x>
+                            <y>0</y>
+                            <z>0</z>
+                            <w>1</w>
                         </Rotation>
                     </Pose>
                 </Parameters>

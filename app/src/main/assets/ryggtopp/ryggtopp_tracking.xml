@@ -92,7 +92,7 @@
                             <!-- Snapping Parameters (initialization) -->
 
                             <!-- Pose acceptance threshold in [0.0, 1.0] (default 0.6) -->
-                            <MinQuality>0.82</MinQuality>
+                            <MinQuality>0.6</MinQuality>
                             <!-- Absolute distance to search edges in image for (in [mm] world scale!) Should be ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
                             <!--<SearchRange>50</SearchRange>-->
                             <!-- Relative distance to search edges in image for (in multiple of line model sizes). Default: ~30% of the model size. Only one of SearchRange and SearchRangeRelative should be set. Only one of SearchRange and SearchRangeRelative is used. Relative is preferred during execution. -->
