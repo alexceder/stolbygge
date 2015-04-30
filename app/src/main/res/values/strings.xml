@@ -6,4 +6,6 @@
     <string name="title_activity_instructions">Instructions</string>
 
     <string name="action_settings">Settings</string>
+    <string name="next_step">Nästa steg</string>
+    <string name="show_step_animation">Visa animering</string>
 </resources>
