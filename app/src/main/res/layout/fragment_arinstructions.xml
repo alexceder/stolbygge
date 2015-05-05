@@ -25,7 +25,7 @@
             android:id="@+id/step_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/step_done"
+            android:background="@color/bgc_current"
             android:gravity="center"
             android:padding="10dp"
             android:text="1"
@@ -51,7 +51,7 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next_step" />
+            android:text="@string/next_step"/>
 
     </LinearLayout>
 

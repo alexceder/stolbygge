@@ -130,7 +130,7 @@ public class InstructionsActivity extends Activity {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
             button.setId(i);
-            button.setBackgroundColor(getResources().getColor(R.color.step_left));
+            button.setBackgroundColor(getResources().getColor(R.color.bgc_progressbar_unvisited));
             button.setText(Integer.toString(i+1));
             button.setLayoutParams(params);
 
