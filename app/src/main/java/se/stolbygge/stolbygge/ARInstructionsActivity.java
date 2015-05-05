@@ -10,8 +10,10 @@ import android.view.View;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.GestureHandlerAndroid;
 import com.metaio.sdk.MetaioDebug;
+import com.metaio.sdk.jni.ELIGHT_TYPE;
 import com.metaio.sdk.jni.GestureHandler;
 import com.metaio.sdk.jni.IGeometry;
+import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector2d;
@@ -27,6 +29,7 @@ public class ARInstructionsActivity extends ARViewActivity {
     private IGeometry modelOnScreen;
     private GestureHandlerAndroid mGestureHandler;
     private int mGestureMask;
+    private ILight mDirectionalLight;
 
     //Metaio SDK Callback handler
     private IMetaioSDKCallback mCallbackHandler;
@@ -88,7 +91,6 @@ public class ARInstructionsActivity extends ARViewActivity {
 
     // Loads tracking model, returns an IGeometry
     private IGeometry loadModel(final String pathToModel) {
-
         IGeometry geometry = null;
 
         try {
@@ -110,18 +112,25 @@ public class ARInstructionsActivity extends ARViewActivity {
     }
 
     private void loadStepModel(String img) {
-
         //Load model
         modelOnScreen = loadModel(img);
 
         // Check that model not null
         if(modelOnScreen != null) {
-            modelOnScreen.setCoordinateSystemID(0);
+            // Sets the directional light
+            mDirectionalLight = metaioSDK.createLight();
+            mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
+            mDirectionalLight.setAmbientColor(new Vector3d(0.827f, 0.827f, 0.827f)); // Light Grey
+            mDirectionalLight.setDiffuseColor(new Vector3d(1.000f, 0.980f, 0.804f)); // Goldenrod
+            mDirectionalLight.setCoordinateSystemID(0);
+
+            modelOnScreen.setCoordinateSystemID(mDirectionalLight.getCoordinateSystemID());
             // Anchors the model in front of camera
             modelOnScreen.setRelativeToScreen(IGeometry.ANCHOR_CC);
             // Should be scaled according to size of device instead.
             modelOnScreen.setScale(new Vector3d(1.6f, 1.6f, 1.6f) );
             modelOnScreen.setRotation(new Rotation(0.0f, 2.0f, 0.0f),true);
+            modelOnScreen.setDynamicLightingEnabled(true);
 
             mGestureHandler.addObject(modelOnScreen, 1);
 
@@ -131,10 +140,7 @@ public class ARInstructionsActivity extends ARViewActivity {
     }
 
     public void setStepView(int position) {
-
         String img = "steg_" + Integer.toString(position) + ".obj"; //TODO change when there are new cool things here
         loadStepModel(img);
     }
 }
-
-
