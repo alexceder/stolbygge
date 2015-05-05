@@ -22,11 +22,12 @@ import com.metaio.tools.io.AssetsManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ARInstructionsActivity extends ARViewActivity {
 
     //step one model
-    private IGeometry modelOnScreen;
+    //private IGeometry modelOnScreen;
     private GestureHandlerAndroid mGestureHandler;
     private int mGestureMask;
     private ILight mDirectionalLight;
@@ -34,11 +35,19 @@ public class ARInstructionsActivity extends ARViewActivity {
     //Metaio SDK Callback handler
     private IMetaioSDKCallback mCallbackHandler;
 
+    // Light
+    private ILight mDirectionalLight;
+
+    // Gemoetries
+    private ArrayList<IGeometry> step_geometries;
+    private ArrayList<IGeometry> correct_geometries;
+    private ArrayList<IGeometry> aid_geometries;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        modelOnScreen = null;
+        //modelOnScreen = null;
         mCallbackHandler = new IMetaioSDKCallback();
         mGestureMask = GestureHandler.GESTURE_ALL;
         mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
@@ -80,21 +89,63 @@ public class ARInstructionsActivity extends ARViewActivity {
         try {
             // Extract all assets and overwrite existing files if debug build
             AssetsManager.extractAllAssets(getApplicationContext(), BuildConfig.DEBUG);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             MetaioDebug.log(Log.ERROR, "Error extracting assets: " + e.getMessage());
             MetaioDebug.printStackTrace(Log.ERROR, e);
         }
 
-        setStepView(1);
+        // Initialize step geometries -- a.k.a. badass animations.
+        ArrayList<Step> steps = Store.getInstance().getSteps();
+        step_geometries = new ArrayList<>();
+
+        for (Step step : steps) {
+            IGeometry step_geometry = loadModel(
+                    //"step_" + step.getStepNr() + "/step_" + step.getStepNr() + ".zip");
+                    "steg_" + step.getStepNr() + ".obj");
+
+            // TODO: Start animation
+            //step_geometry.startAnimation("Default Take", true);
+
+            // TODO: Figure out if we suffer performance loss having dynamic lights enabled
+            step_geometry.setDynamicLightingEnabled(true);
+            step_geometry.setVisible(false);
+
+            step_geometries.add(step_geometry);
+        }
+
+        // Initialize all part geometries and hide them.
+        ArrayList<Part> parts = Store.getInstance().getFindableParts();
+        correct_geometries = new ArrayList<>();
+        aid_geometries = new ArrayList<>();
+
+        for (Part part : parts) {
+            IGeometry correct = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_correct.obj");
+            IGeometry aid = loadModel(part.getGeometry() + "/" + part.getGeometry() + "_surface.obj");
+
+            correct.setDynamicLightingEnabled(true);
+            aid.setDynamicLightingEnabled(true);
+
+            correct.setVisible(false);
+            aid.setVisible(false);
+
+            correct_geometries.add(correct);
+            aid_geometries.add(aid);
+        }
+
+        // Setup directional light
+        mDirectionalLight = metaioSDK.createLight();
+        mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
+        mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // slightly green
+        mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // orange
+        mDirectionalLight.setCoordinateSystemID(0);
+
+        setStep(0, 0);
     }
 
-    // Loads tracking model, returns an IGeometry
     private IGeometry loadModel(final String pathToModel) {
         IGeometry geometry = null;
 
         try {
-            // get the file from given path
             final File fModelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToModel);
             geometry = metaioSDK.createGeometry(fModelPath);
             Log.d("ARActivity", "in loadModel: loaded!" + fModelPath);
@@ -105,42 +156,23 @@ public class ARInstructionsActivity extends ARViewActivity {
         return geometry;
     }
 
-    // Needs to exist to make ARViewActivity happy.
     @Override
     protected void onGeometryTouched(IGeometry geometry) {
-
     }
 
-    private void loadStepModel(String img) {
-        //Load model
-        modelOnScreen = loadModel(img);
-
-        // Check that model not null
-        if(modelOnScreen != null) {
-            // Sets the directional light
-            mDirectionalLight = metaioSDK.createLight();
-            mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
-            mDirectionalLight.setAmbientColor(new Vector3d(0.827f, 0.827f, 0.827f)); // Light Grey
-            mDirectionalLight.setDiffuseColor(new Vector3d(1.000f, 0.980f, 0.804f)); // Goldenrod
-            mDirectionalLight.setCoordinateSystemID(0);
-
-            modelOnScreen.setCoordinateSystemID(mDirectionalLight.getCoordinateSystemID());
-            // Anchors the model in front of camera
-            modelOnScreen.setRelativeToScreen(IGeometry.ANCHOR_CC);
-            // Should be scaled according to size of device instead.
-            modelOnScreen.setScale(new Vector3d(1.6f, 1.6f, 1.6f) );
-            modelOnScreen.setRotation(new Rotation(0.0f, 2.0f, 0.0f),true);
-            modelOnScreen.setDynamicLightingEnabled(true);
-
-            mGestureHandler.addObject(modelOnScreen, 1);
-
-        } else {
-            Log.d("*Step view*", "Model not loaded!");
+    public void setStep(int last, int next) {
+        // Hide current
+        if (last != next) {
+            step_geometries.get(last).setVisible(false);
         }
-    }
 
-    public void setStepView(int position) {
-        String img = "steg_" + Integer.toString(position) + ".obj"; //TODO change when there are new cool things here
-        loadStepModel(img);
+        // Show next
+        step_geometries.get(next).setVisible(true);
+
+        // WHAT IS THIS!?
+        step_geometries.get(next).setRelativeToScreen(IGeometry.ANCHOR_CC);
+
+        // Set coordinate systems
+        step_geometries.get(next).setCoordinateSystemID(0);
     }
 }

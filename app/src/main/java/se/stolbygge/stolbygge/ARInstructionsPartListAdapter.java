@@ -1,6 +1,7 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class ARInstructionsPartListAdapter extends ArrayAdapter<Part> {
             @Override
             public void onClick(View v) {
                 // TODO expand on click
+                Log.d("ALEX", "NU KLICKADE DU PÅ EN DEL I EN STEGLISTA!");
             }
         });
 

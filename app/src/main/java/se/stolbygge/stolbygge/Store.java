@@ -41,6 +41,16 @@ public final class Store {
         temp.add(parts.get(1));
         steps.add(new Step("Steg 2", 2, "steg_2", new ArrayList<>(temp)));
         temp.clear();
+
+        temp.add(parts.get(2));
+        temp.add(parts.get(3));
+        steps.add(new Step("Steg 3", 3, "steg_3", new ArrayList<>(temp)));
+        temp.clear();
+
+        temp.add(parts.get(4));
+        temp.add(parts.get(1));
+        steps.add(new Step("Steg 4", 4, "steg_4", new ArrayList<>(temp)));
+        temp.clear();
     }
 
     public static Store getInstance() {

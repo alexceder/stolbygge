@@ -1,5 +1,8 @@
 package se.stolbygge.stolbygge;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,97 +17,169 @@ import java.util.ArrayList;
 
 public class ARInstructionsFragment extends Fragment {
 
-    View rootView;
-    int currentStep = 1;
-    ARInstructionsActivity activity;
-    ArrayList<Step> steps;
-    ArrayList<Part> parts;
-    ARInstructionsPartListAdapter adapter;
-    TextView stepText;
+    /**
+     * The current step, 0-indexed.
+     */
+    private int currentStep;
+
+    /**
+     * All the steps. Used when updating the adapter for current step.
+     */
+    private ArrayList<Step> steps;
+
+    /**
+     * Abstracts the current steps parts.
+     */
+    private ARInstructionsPartListAdapter adapter;
+
+    /**
+     * The current steps heading view.
+     */
+    private TextView stepHeadingView;
+
+    private LinearLayout progressListView;
 
     public ARInstructionsFragment() {
-        // Required empty public constructor
+        //
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_arinstructions, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_arinstructions, container, false);
 
-        init();
+        // Get steps
+        steps = Store.getInstance().getSteps();
+
+        // We start at step 0
+        currentStep = 0;
+
+        // Create list of parts belonging to the step, i.e. 0.
+        createPartList(rootView, currentStep);
+
+        // Store this in a variable so we dont have to findViewById every click.
+        stepHeadingView = (TextView) rootView.findViewById(R.id.step_text);
+
+        // Next step button
+        Button nextButton = (Button) rootView.findViewById(R.id.next_button);
+        nextButton.setOnClickListener(new NextButtonListener());
+
+        // Progress bar (list)
+        progressListView = (LinearLayout) rootView.findViewById(R.id.listview_progresslist);
+
+        // Create a list of navigation buttons (for progress bar)
+        for (int i = 0; i < steps.size(); i++) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+
+            Button button = new Button(getActivity());
+            button.setId(i);
+            button.setText(getString(R.string.step) + " " + Integer.toString(i + 1));
+            button.setLayoutParams(params);
+            button.setOnClickListener(new ProgressButtonListener());
+
+            progressListView.addView(button);
+        }
+
+        // Run this method.
+        // This might be a bit uncessesary -- but we keep all the "current nuisance" in one place.
+        updateToCurrentStep();
 
         return rootView;
     }
 
-    private void init() {
+    /**
+     * Create the list of parts needed for the specific step
+     */
+    private void createPartList(View rootView, int position) {
+        ArrayList<Part> parts = steps.get(position).getParts();
+        adapter = new ARInstructionsPartListAdapter(
+                getActivity(), R.layout.instructions_part_list_item, parts);
 
-        activity = (ARInstructionsActivity) getActivity();
-
-        //init next step button
-        Button nextButton = (Button) rootView.findViewById(R.id.next_button);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentStep++;
-                onStepClick(currentStep);
-            }
-        });
-
-        steps = Store.getInstance().getSteps();
-
-        LinearLayout progressListView = (LinearLayout) rootView.findViewById(R.id.listview_progresslist);
-
-        // Create a list of navigation buttons
-        for (int i = 0; i < steps.size(); i++) {
-
-            int color = (i < currentStep) ? getResources().getColor(R.color.bgc_current) : getResources().getColor(R.color.bgc_progressbar_unvisited);
-            final Button button = new Button(getActivity());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            button.setId(i);
-            button.setText("Steg " + Integer.toString(i + 1));
-            button.setLayoutParams(params);
-            button.setBackgroundColor(color);
-
-            // Clicking on one of the buttons redirect to that step
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //scrollTo(button.getId());
-                }
-            });
-            progressListView.addView(button);
-        }
-
-        stepText = (TextView) rootView.findViewById(R.id.step_text);
-        stepText.setText(Integer.toString(currentStep));
-
-        // Create list of parts belonging to the step, start with position 0
-        createPartList(0);
-    }
-
-    // Create the list of parts needed for the specific step
-    private void createPartList(int position) {
-
-        ArrayList<Part> stepParts = steps.get(position).getParts();
-        adapter = new ARInstructionsPartListAdapter(getActivity(), R.layout.instructions_part_list_item, stepParts);
+        // Hook up the view with the adapter.
         ListView partList = (ListView) rootView.findViewById(R.id.listview_stepparts);
         partList.setAdapter(adapter);
     }
 
-    // Used when clicking on next-button and on the navigation bar
-    // goes to the next step in instructions
-    private void onStepClick(int position) {
+    /**
+     * Update view to current step's list of parts adapter and updates the heading.
+     */
+    private void updateToCurrentStep() {
+        // Change heading
+        stepHeadingView.setText(
+                getString(R.string.step) + " " + Integer.toString(steps.get(currentStep).getStepNr()));
 
-        if (position != 6) { //TODO set to step size
-            currentStep = position;
-            activity.setStepView(currentStep);
-            stepText.setText(Integer.toString(currentStep));
+        // Highlight progressbar
+        // This could be done as per next section if this was a list adapter
+        // however this is easier -- but uglier.
+        for (int i = 0 ; i < progressListView.getChildCount(); ++i) {
+            progressListView.getChildAt(i).setBackgroundColor(
+                    getResources().getColor(R.color.step_done));
+        }
+        progressListView.findViewById(currentStep).setBackgroundColor(
+                getResources().getColor(R.color.step_left));
 
-            // TODO update part list
+        // Update step parts list adapter
+        ArrayList<Part> currentStepParts = steps.get(currentStep).getParts();
+        adapter.setParts(currentStepParts);
+        adapter.notifyDataSetChanged();
+    }
+
+    private class ProgressButtonListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            // TODO: Clicking on one of the buttons should scroll to that step
+            // Not sure this is still valid? Do we ever scroll?
+            //scrollTo(button.getId());
+
+            // Don't think we need to show the previous step in the progress bar.
+            // Then we need some kind of DONE button in addition to the NEXT
+            // button so that the user may finish the step.
+            // One idea is to keep a queue of visited steps so you can see which
+            // path the user has taken.. but.. overkill/unnecessary?
+            //progressListView.findViewById(currentStep).setBackgroundColor(Color.RED);
+
+            // This is nicer -- but we don't want to repeat ourselves
+            //v.setBackgroundColor(Color.GREEN);
+
+            int next = v.getId();
+            ((ARInstructionsActivity) getActivity()).setStep(currentStep, next);
+            currentStep = next;
+
+            updateToCurrentStep();
         }
     }
 
+    private class NextButtonListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            if (currentStep+1 < steps.size()) {
+                ((ARInstructionsActivity) getActivity()).setStep(currentStep++, currentStep);
+                updateToCurrentStep();
+            } else {
+                // This may very well just act as a placeholder. Just wanted some kind of
+                // feedback for when you click next.
+                // An alternative could be to hide the next button when you come to the last step
+                // and always show some kind of DONE button or something.
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Inga fler steg!")
+                        .setMessage("Är du klar? Betygsätt gärna!")
+                        .setNegativeButton("Nej,Tillbaka", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing
+                            }
+                        })
+                        .setPositiveButton("Ja, betygsätt!", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO: Move on to rate view
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .show();
+            }
+        }
+    }
 }
