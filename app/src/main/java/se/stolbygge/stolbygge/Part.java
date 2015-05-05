@@ -9,13 +9,20 @@ public class Part implements Serializable {
     private String imgName;
     private String geometry;
     private int amount;
-    private boolean isFound;
+    private boolean findable;
+    private boolean found;
 
-    // noob constructor for starters
     public Part() {
-        this.name = "Skruv";
-        this.artNo = "1337";
-        this.amount = 7;
+        //
+    }
+
+    public Part(String name, String artNo, String imgName, int amount) {
+        this.name = name;
+        this.artNo = artNo;
+        this.imgName = imgName;
+        this.amount = amount;
+        this.findable = true;
+        this.found = false;
     }
 
     public Part(String name, String artNo, String imgName, String geometry, int amount) {
@@ -24,13 +31,18 @@ public class Part implements Serializable {
         this.imgName = imgName;
         this.geometry = geometry;
         this.amount = amount;
+        this.findable = true;
+        this.found = false;
     }
 
-    public Part(String name, String artNo, String imgName, int amount) {
+    public Part(String name, String artNo, String imgName, String geometry, int amount, boolean findable) {
         this.name = name;
         this.artNo = artNo;
         this.imgName = imgName;
+        this.geometry = geometry;
         this.amount = amount;
+        this.findable = findable;
+        this.found = false;
     }
 
     public String getName() {
@@ -49,12 +61,16 @@ public class Part implements Serializable {
         return imgName;
     }
 
-    public boolean isFound() {
-        return isFound;
+    public String getGeometry() {
+        return geometry;
     }
 
-    public void setGeometry(String geometry) {
-        this.geometry = geometry;
+    public boolean isFound() {
+        return found;
+    }
+
+    public boolean isFindable() {
+        return findable;
     }
 
     public void setName(String name) {
@@ -73,11 +89,15 @@ public class Part implements Serializable {
         this.imgName = imgName;
     }
 
-    public void setFound(boolean isFound) {
-        this.isFound = isFound;
+    public void setGeometry(String geometry) {
+        this.geometry = geometry;
     }
 
-    public String getGeometry() {
-        return geometry;
+    public void setFound(boolean found) {
+        this.found = found;
+    }
+
+    public void setFindable(boolean findable) {
+        this.findable = findable;
     }
 }

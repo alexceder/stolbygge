@@ -11,8 +11,7 @@ public class Step {
     private boolean checked;
 
     public Step() {
-        this.stepName = "Steg 1000";
-        this.stepNr = 1000;
+        //
     }
 
     public Step(String stepName, int stepNr, String imgName, ArrayList<Part> parts) {

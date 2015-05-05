@@ -52,32 +52,7 @@ public class ARInstructionsFragment extends Fragment {
             }
         });
 
-        // init list of steps and parts
-        steps = new ArrayList<Step>();
-        parts = new ArrayList<Part>();
-
-        parts.add(new Part("Ryggstöd", "1", "ryggstod", 1));
-        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", 1));
-        parts.add(new Part("Plugg", "1", "plugg", 2));
-        steps.add(new Step("Steg 1", 1, "steg_1", (ArrayList) parts.clone()));
-        parts.clear();
-
-        parts.add(new Part("Sits", "1", "sits", 1));
-        steps.add(new Step("Steg 2", 2, "steg_2", (ArrayList) parts.clone()));
-        parts.clear();
-
-        parts.add(new Part("Höger benpar", "1", "hoger_benpar", 1));
-        steps.add(new Step("Steg 3", 3, "steg_3", (ArrayList) parts.clone()));
-        parts.clear();
-
-        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", 1));
-        steps.add(new Step("Steg 4", 4, "steg_4", (ArrayList) parts.clone()));
-        parts.clear();
-
-        parts.add(new Part("Insexskruv", "1", "insexskruv", 3));
-        steps.add(new Step("Steg 5", 5, "steg_5", (ArrayList) parts.clone()));
-
-        steps.add(new Step("Steg 6", 6, "steg_6", (ArrayList) parts.clone()));
+        steps = Store.getInstance().getSteps();
 
         LinearLayout progressListView = (LinearLayout) rootView.findViewById(R.id.listview_progresslist);
 

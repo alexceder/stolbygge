@@ -69,14 +69,7 @@ public class ARActivity extends ARViewActivity {
 
         mCallbackHandler = new FoundObjectCallback();
 
-        // TODO: You can do better!
-        parts = new ArrayList<>();
-        parts.add(new Part("Plugg", "1", "plugg", "plugg", 2));
-        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", "sida", 1));
-        parts.add(new Part("Sitts", "1", "sitts", "sits", 1));
-        parts.add(new Part("Ryggstöd", "1", "ryggstod", "ryggtopp", 1));
-        parts.add(new Part("Höger benpar", "1", "hoger_benpar", "sida", 1));
-        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", "ryggstod", 1));
+        parts = Store.getInstance().getFindableParts();
 
         current = 0;
     }
