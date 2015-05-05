@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="se.stolbygge.stolbygge.BeginFragment">
+
+    <!-- Left welcome menu -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <!-- Button "har du alla delar" -->
+        <Button
+            android:id="@+id/button_productlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product List"/>
+            <!-- android:onClick="onCreateProductList"-->
+
+
+
+        <!-- Button "steg för steg" -->
+        <Button
+            android:id="@+id/button_assemble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assemble"
+            />
+            <!-- android:onClick="onCreateARInstructionsView" -->
+
+
+        <!-- Welcome text -->
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="test"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/blue"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true">
+
+        <!-- Button "Utvärdera" -->
+        <Button
+            android:id="@+id/button_evaluate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Evaluate"/>
+        <!-- android:onClick="......" -->
+
+    </LinearLayout>
+
+</RelativeLayout>

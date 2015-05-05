@@ -20,6 +20,14 @@
             android:background="@drawable/hela_stolen"/>
 
         <Button
+            android:id="@+id/begin_btn"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:text="Begin"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onCreateBegin"/>
+
+        <Button
             android:id="@+id/product_list_btn"
             android:layout_width="130dp"
             android:layout_height="50dp"

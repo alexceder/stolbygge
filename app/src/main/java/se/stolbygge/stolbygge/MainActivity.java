@@ -37,6 +37,12 @@ public class MainActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    // Button for running the app as it is supposed to be in the end result
+    public void onCreateBegin(View view){
+        Intent intent = new Intent(this, se.stolbygge.stolbygge.BeginActivity.class);
+        startActivity(intent);
+    }
+
     // Is called when the button "Product List" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // The operation is to call ListActivity.class that shows and handles the product list.
