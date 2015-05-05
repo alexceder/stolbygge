@@ -6,6 +6,7 @@ import android.util.Log;
 import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
+import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
@@ -36,11 +37,18 @@ public class ARAssembleActivity extends ARViewActivity {
             MetaioDebug.printStackTrace(Log.ERROR, e);
         }
 
-        IGeometry correct = loadModel("kritter.obj");
-        correct.setVisible(true);
-        correct.setRotation(new Rotation(1.57f, 0.0f, 0.0f));
-        correct.setTranslation(new Vector3d(-150, -150, 0));
+        ILight mLight = metaioSDK.createLight();
+        mLight.setAmbientColor(new Vector3d(0.827f, 0.827f, 0.827f)); // Light Grey
+        mLight.setDiffuseColor(new Vector3d(1.000f, 0.980f, 0.804f)); // Goldenrod
+        mLight.setCoordinateSystemID(1);
 
+        IGeometry correct = loadModel("steg1_animering.zip");
+        correct.setDynamicLightingEnabled(true);
+        correct.setVisible(true);
+
+        correct.setScale(10f);
+
+        correct.startAnimation("Default Take", true);
         // Set coordinate systems
         correct.setCoordinateSystemID(1);
 

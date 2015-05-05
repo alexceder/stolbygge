@@ -63,7 +63,7 @@
             android:id="@+id/ar_assemble_btn"
             android:layout_width="130dp"
             android:layout_height="50dp"
-            android:text="Model View"
+            android:text="Step 1 animated"
             android:layout_gravity="center_horizontal"
             android:onClick="onCreateARAssemble"/>
 
