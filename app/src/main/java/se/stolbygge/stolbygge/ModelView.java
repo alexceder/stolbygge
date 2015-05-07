@@ -16,7 +16,6 @@ import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
-import com.metaio.sdk.jni.Vector2d;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
@@ -30,6 +29,9 @@ public class ModelView extends ARViewActivity {
     private GestureHandlerAndroid mGestureHandler;
     private int mGestureMask;
     private ILight mDirectionalLight;
+    private float lastX, lastY;
+    float dx = 0, dy = 2; // initial model rotation
+    Rotation rotation;
 
     //Metaio SDK Callback handler
     private IMetaioSDKCallback mCallbackHandler;
@@ -40,7 +42,7 @@ public class ModelView extends ARViewActivity {
 
         modelOnScreen = null;
         mCallbackHandler = new IMetaioSDKCallback();
-        mGestureMask = GestureHandler.GESTURE_ALL;
+        mGestureMask = GestureHandler.GESTURE_DRAG;
         mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
     }
 
@@ -53,12 +55,49 @@ public class ModelView extends ARViewActivity {
         mGestureHandler = null;
     }
 
+    /*
+        Function that is used on static models in AR view.
+        Rotates model on touch. Only gesture drag accepted.
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        super.onTouch(v, event);
 
-        mGestureHandler.setRotationAxis('y');
-        mGestureHandler.onTouch(v, event);
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                lastX = event.getX() - dx;
+                lastY = event.getY() - dy;
+
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                // set delta touch position
+                dx = event.getX() - lastX;
+                dy = event.getY() - lastY;
+
+                // convert pixels to radians, arbitrary velocity number
+                int velocity = 10;
+
+                // get rotation angles
+                double angleY = ((dx / velocity));
+                double angleX = (dy / velocity);
+
+                // multiply rotation matrices to get local model rotation
+                Rotation localRotation;
+                Rotation rot1 = new Rotation();
+                Rotation rot2 = new Rotation();
+                rot1.setFromEulerAngleDegrees(new Vector3d((float) angleX, 0, 0));
+                rot2.setFromEulerAngleDegrees(new Vector3d(0, (float) angleY, 0));
+                localRotation = rot1.multiply(rot2);
+
+                // multiply with inverse of initial rotation to rotate in global coordinate system
+                localRotation = rotation.inverse().multiply(localRotation);
+                float[] mat = new float[9];
+                localRotation.getRotationMatrix(mat);
+                modelOnScreen.setRotation(localRotation);
+
+                break;
+        }
 
         return true;
     }
@@ -77,19 +116,17 @@ public class ModelView extends ARViewActivity {
     @Override
     protected void loadContents() {
         //We extract all the assets from the app and let metaio access them.
-        try
-        {
+        try {
             // Extract all assets and overwrite existing files if debug build
             AssetsManager.extractAllAssets(getApplicationContext(), BuildConfig.DEBUG);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             MetaioDebug.log(Log.ERROR, "Error extracting assets: " + e.getMessage());
             MetaioDebug.printStackTrace(Log.ERROR, e);
         }
 
         //Load model
         modelOnScreen = loadModel("kritter.obj");
+        rotation = new Rotation(dx, dy, 0);
 
         // Check that model not null
         if(modelOnScreen != null) {
@@ -104,8 +141,9 @@ public class ModelView extends ARViewActivity {
             // Anchors the model in front of camera
             modelOnScreen.setRelativeToScreen(IGeometry.ANCHOR_CC);
             // Should be scaled according to size of device instead.
+            rotation = new Rotation(dx, dy, 0);
             modelOnScreen.setScale(new Vector3d(1.6f, 1.6f, 1.6f) );
-            modelOnScreen.setRotation(new Rotation(0.0f, 2.0f, 0.0f),true);
+            modelOnScreen.setRotation(rotation, true);
             modelOnScreen.setDynamicLightingEnabled(true);
 
             mGestureHandler.addObject(modelOnScreen, 1);
@@ -124,7 +162,7 @@ public class ModelView extends ARViewActivity {
             final File fModelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToModel);
             geometry = metaioSDK.createGeometry(fModelPath);
             Log.d("ARActivity", "in loadModel: loaded!" + fModelPath);
-        }catch(Exception e) {
+        } catch (Exception e) {
             Log.d("ARActivity", "in loadModel: not loaded" + pathToModel);
             return geometry;
         }
