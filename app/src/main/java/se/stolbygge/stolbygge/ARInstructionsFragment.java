@@ -59,7 +59,7 @@ public class ARInstructionsFragment extends Fragment {
         // Create a list of navigation buttons
         for (int i = 0; i < steps.size(); i++) {
 
-            int color = (i < currentStep) ? getResources().getColor(R.color.step_done) : getResources().getColor(R.color.step_left);
+            int color = (i < currentStep) ? getResources().getColor(R.color.bgc_current) : getResources().getColor(R.color.bgc_progressbar_unvisited);
             final Button button = new Button(getActivity());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);

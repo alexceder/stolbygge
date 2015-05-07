@@ -74,7 +74,7 @@ public class StepListAdapter extends ArrayAdapter<Step> {
 
         // Check button for item view
         final Button checkBtn = (Button) view.findViewById(R.id.item_checkbox);
-        int color = (currentStep.isChecked()) ? context.getResources().getColor(R.color.step_done) : context.getResources().getColor(R.color.step_left);
+        int color = (currentStep.isChecked()) ? context.getResources().getColor(R.color.bgc_done) : context.getResources().getColor(R.color.bgc_progressbar_unvisited);
         checkBtn.setBackgroundColor(color);
 
         // Check button is used as a checkbox. When checked it changes color and directs to the next step.
@@ -87,7 +87,7 @@ public class StepListAdapter extends ArrayAdapter<Step> {
                 } else {
                     currentStep.setChecked(true);
                 }
-                int color = (currentStep.isChecked()) ? context.getResources().getColor(R.color.step_done) : context.getResources().getColor(R.color.step_left);
+                int color = (currentStep.isChecked()) ? context.getResources().getColor(R.color.bgc_done) : context.getResources().getColor(R.color.bgc_progressbar_unvisited);
                 checkBtn.setBackgroundColor(color);
 
                 RelativeLayout relativeLayout = (RelativeLayout) parent.getParent();

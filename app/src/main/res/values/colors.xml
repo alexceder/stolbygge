@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="step_done" type="color">#0bf327</item>
-    <item name="step_left" type="color">#999999</item>
+
+    <!-- Background colors -->
+        <!-- General colors -->
+        <item name="bgc_done" type="color">#18B512</item> <!-- Background color for completed steps -->
+        <item name="bgc_current" type="color">#ff0</item> <!-- Background color for current step -->
+
+        <!-- Specific colors -->
+        <item name="bgc_progressbar_unvisited" type="color">#bbb</item> <!-- Background color for unvisited steps -->
+        <item name="bgc_AR_view_unvisited" type="color">#fff</item> <!-- Background color for unvisited objects -->
+        <item name="bgc_AR_view_not_found" type="color">#f33</item> <!-- Background color for unrecognized objects -->
+
+        <!-- Buttons -->
+        <item name="bgc_button" type="color">#bbb</item> <!-- Primary button background color -->
+        <item name="bgc_button_clicked" type="color">#777</item> <!-- Background color for clicked button -->
+
+    <!-- Font colors -->
+    <item name="fc_primary" type="color">#555</item> <!-- Primary font color -->
+
+    <!-- Other colors -->
     <item name="yellow" type="color">#999900</item>
     <item name="blue" type="color">#0000ff</item>
     <item name="white" type="color">#fff</item>
+    <item name="pink" type="color">#f0f</item>
+
 </resources>
