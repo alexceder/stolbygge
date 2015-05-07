@@ -32,28 +32,36 @@ public class BeginFragment extends Fragment {
         activity = (BeginActivity) getActivity();
 
         welcometext = (TextView) rootView.findViewById(R.id.welcomeText);
-        welcometext.setText("Welcome!");
+        welcometext.setText("Welcome to the assembly aid to Kritter!");
+        welcometext.setTextSize(20.0f);
 
         button_productlist = (Button) rootView.findViewById(R.id.button_productlist);
-        button_assemble = (Button) rootView.findViewById(R.id.button_productlist);
-        button_evaluate = (Button) rootView.findViewById(R.id.button_productlist);
+        button_assemble = (Button) rootView.findViewById(R.id.button_assemble);
+        button_evaluate = (Button) rootView.findViewById(R.id.button_evaluate);
 
         init();
 
         return rootView;
     }
 
+
     private void init(){
 
         //TODO: Add the functions for the buttons
 
+        // TODO: BÖRJA HÄR!
+
         button_productlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Does not work
-                Intent myIntent = new Intent(activity, se.stolbygge.stolbygge.ListActivity.class);
-                startActivity(myIntent);
-                */
+               activity.onCreateProductList();
+            }
+        });
+
+        button_assemble.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onCreateARInstructionsView();
             }
         });
 

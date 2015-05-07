@@ -61,7 +61,7 @@ public class BeginActivity extends ARViewActivity {
 
     @Override
     protected int getGUILayout() {
-        return R.layout.fragment_begin;
+        return R.layout.activity_begin;
     }
 
     @Override
@@ -122,6 +122,19 @@ public class BeginActivity extends ARViewActivity {
     @Override
     protected void onGeometryTouched(IGeometry geometry) {
 
+    }
+
+    // Is called when the button "Product List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ARActivity.class that shows and handles the product list.
+    public void onCreateProductList() {
+        Intent intent = new Intent(this, ARActivity.class);
+        startActivity(intent);
+    }
+
+    public void onCreateARInstructionsView() {
+        Intent intent = new Intent(this, ARInstructionsActivity.class);
+        startActivity(intent);
     }
 
 }
