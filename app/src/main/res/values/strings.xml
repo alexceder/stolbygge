@@ -9,4 +9,5 @@
     <string name="step">Steg</string>
     <string name="next_step">Nästa steg</string>
     <string name="show_step_animation">Visa animering</string>
+    <string name="show_step_animation_pause">Pausa animering</string>
 </resources>

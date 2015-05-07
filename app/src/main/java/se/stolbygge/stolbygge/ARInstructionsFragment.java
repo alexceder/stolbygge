@@ -2,7 +2,6 @@ package se.stolbygge.stolbygge;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,6 +38,8 @@ public class ARInstructionsFragment extends Fragment {
 
     private LinearLayout progressListView;
 
+    private boolean paused;
+
     public ARInstructionsFragment() {
         //
     }
@@ -64,6 +65,10 @@ public class ARInstructionsFragment extends Fragment {
         // Next step button
         Button nextButton = (Button) rootView.findViewById(R.id.next_button);
         nextButton.setOnClickListener(new NextButtonListener());
+
+        // Pause animation button
+        Button pauseToggleButton = (Button) rootView.findViewById(R.id.pause_toggle_button);
+        pauseToggleButton.setOnClickListener(new ToggleAnimationButtonListener());
 
         // Progress bar (list)
         progressListView = (LinearLayout) rootView.findViewById(R.id.listview_progresslist);
@@ -115,10 +120,10 @@ public class ARInstructionsFragment extends Fragment {
         // however this is easier -- but uglier.
         for (int i = 0 ; i < progressListView.getChildCount(); ++i) {
             progressListView.getChildAt(i).setBackgroundColor(
-                    getResources().getColor(R.color.step_done));
+                    getResources().getColor(R.color.bgc_progressbar_unvisited));
         }
         progressListView.findViewById(currentStep).setBackgroundColor(
-                getResources().getColor(R.color.step_left));
+                getResources().getColor(R.color.bgc_current));
 
         // Update step parts list adapter
         ArrayList<Part> currentStepParts = steps.get(currentStep).getParts();
@@ -179,6 +184,22 @@ public class ARInstructionsFragment extends Fragment {
                         })
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .show();
+            }
+        }
+    }
+
+    private class ToggleAnimationButtonListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            ((ARInstructionsActivity) getActivity()).togglePauseStepAnimation(currentStep);
+
+            // TODO: Should probably add a current state to this. But I cba right now.
+            Button btn = (Button) v;
+            if (getString(R.string.show_step_animation).equals(btn.getText())) {
+                btn.setText(getString(R.string.show_step_animation_pause));
+            } else {
+                btn.setText(getString(R.string.show_step_animation));
             }
         }
     }
