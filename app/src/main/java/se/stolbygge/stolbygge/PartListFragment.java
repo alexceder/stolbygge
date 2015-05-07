@@ -3,6 +3,7 @@ package se.stolbygge.stolbygge;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,15 +44,28 @@ public class PartListFragment extends Fragment {
     }
 
     public void onFound(final int position) {
-
         adapter.getItem(position).setFound(true);
-        adapter.current = position+1;
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 adapter.notifyDataSetChanged();
-
             }
         });
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(2000);
+                adapter.current = position+1;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
+
     }
 }

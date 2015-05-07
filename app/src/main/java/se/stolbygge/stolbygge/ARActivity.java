@@ -3,6 +3,7 @@ package se.stolbygge.stolbygge;
 import android.app.FragmentManager;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
@@ -265,7 +266,17 @@ public class ARActivity extends ARViewActivity {
                     Log.d("ARActivity", "hittade object!");
                     PartListFragment partListFragment = (PartListFragment) getFragmentManager().findFragmentById(R.id.item_list);
                     partListFragment.onFound(current);
-                    onClickNext();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SystemClock.sleep(2000);
+
+                            onClickNext();
+                        }
+                    }).start();
+
+
                 }
             }
         }
