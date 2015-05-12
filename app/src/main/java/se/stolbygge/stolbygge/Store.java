@@ -55,7 +55,7 @@ public final class Store {
 
         temp.add(parts.get(0));
         temp.get(0).setAmount(3);
-        steps.add(new Step("Steg 5", 5, "steg_5", new ArrayList<>(temp)));
+        steps.add(new Step("Steg 6", 6, "steg_6", new ArrayList<>(temp)));
         temp.clear();
     }
 
