@@ -128,8 +128,8 @@ public class ARPartsActivity extends ARViewActivity {
         // Setup directional light
         mDirectionalLight = metaioSDK.createLight();
         mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
-        mDirectionalLight.setAmbientColor(new Vector3d(0, 0.15f, 0)); // slightly green
-        mDirectionalLight.setDiffuseColor(new Vector3d(0.6f, 0.2f, 0)); // orange
+        mDirectionalLight.setAmbientColor(new Vector3d(0.827f, 0.827f, 0.827f)); // light grey
+        mDirectionalLight.setDiffuseColor(new Vector3d(1.000f, 0.980f, 0.804f)); // golden rod
         mDirectionalLight.setCoordinateSystemID(2);
 
 
