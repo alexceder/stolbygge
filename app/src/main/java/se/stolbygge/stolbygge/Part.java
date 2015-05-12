@@ -11,6 +11,7 @@ public class Part implements Serializable {
     private int amount;
     private boolean findable;
     private boolean found;
+    private boolean big;
 
     public Part() {
         //
@@ -45,6 +46,17 @@ public class Part implements Serializable {
         this.found = false;
     }
 
+    public Part(String name, String artNo, String imgName, String geometry, int amount, boolean findable, boolean big) {
+        this.name = name;
+        this.artNo = artNo;
+        this.imgName = imgName;
+        this.geometry = geometry;
+        this.amount = amount;
+        this.findable = findable;
+        this.found = false;
+        this.big = big;
+    }
+
     public String getName() {
         return name;
     }
@@ -73,6 +85,10 @@ public class Part implements Serializable {
         return findable;
     }
 
+    public boolean isBig() {
+        return big;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -99,5 +115,9 @@ public class Part implements Serializable {
 
     public void setFindable(boolean findable) {
         this.findable = findable;
+    }
+
+    public void setBig(boolean big) {
+        this.big = big;
     }
 }

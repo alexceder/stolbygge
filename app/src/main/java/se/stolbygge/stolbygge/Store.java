@@ -15,13 +15,14 @@ public final class Store {
 
         // Create the parts
         parts = new ArrayList<>();
-        parts.add(new Part("Insexskruv", "1", "insexskruv", "insexskruv", 6, false));
-        parts.add(new Part("Insexnyckel", "1", "insexnyckel", "insexnyckel", 1, false));
-        parts.add(new Part("Plugg", "1", "plugg", "plugg", 2));
-        parts.add(new Part("Bensida", "1", "vanster_benpar", "sida", 2));
-        parts.add(new Part("Sits", "1", "sitts", "sits", 1));
-        parts.add(new Part("Ryggstöd", "1", "ryggstod", "ryggtopp", 1));
-        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", "ryggstod", 1));
+        parts.add(new Part("Insexskruv", "1", "insexskruv", "insexskruv", 6, false, false));
+        parts.add(new Part("Insexnyckel", "1", "insexnyckel", "insexnyckel", 1, false, false));
+        parts.add(new Part("Plugg", "1", "plugg", "plugg", 2, true, false));
+        parts.add(new Part("Vänster benpar", "1", "vanster_benpar", "sida", 1, true, true));
+        parts.add(new Part("Höger benpar", "1", "hoger_benpar", "sida", 1, true, true));
+        parts.add(new Part("Sits", "1", "sitts", "sits", 1, true, true));
+        parts.add(new Part("Ryggstöd", "1", "ryggstod", "ryggtopp", 1, true, true));
+        parts.add(new Part("Ryggstödsdekoration", "1", "ryggstodsdekoration", "ryggstod", 1, true, true));
 
         // NOTE: The parts list in each step is a SHALLOW copy -- this is intended.
         // NOTE: You might think we need a getByName or something and extend the ArrayList
@@ -81,5 +82,17 @@ public final class Store {
         }
 
         return identifiableParts;
+    }
+
+    public ArrayList<Part> getBigParts() {
+        ArrayList<Part> bigParts = new ArrayList<>();
+
+        for (Part p : parts) {
+            if (p.isBig()) {
+                bigParts.add(p);
+            }
+        }
+
+        return bigParts;
     }
 }
