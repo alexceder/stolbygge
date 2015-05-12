@@ -1,4 +1,4 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="se.stolbygge.stolbygge.MissingPartsActivity">
+    tools:context="se.stolbygge.stolbygge.MainActivity">
 
 </menu>

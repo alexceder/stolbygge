@@ -5,4 +5,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="InstructionsTheme" parent="AppTheme">
+        <item name="android:background">#ffffff</item>
+    </style>
 </resources>

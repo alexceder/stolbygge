@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="se.stolbygge.stolbygge.ListActivity">
+    tools:context="se.stolbygge.stolbygge.MainActivity">
     <item android:id="@+id/action_missing" android:title="@string/title_activity_missing"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

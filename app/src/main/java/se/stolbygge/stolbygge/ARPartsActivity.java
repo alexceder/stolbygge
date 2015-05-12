@@ -1,11 +1,10 @@
 package se.stolbygge.stolbygge;
 
-import android.app.FragmentManager;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.View;
 
 import com.metaio.sdk.jni.ELIGHT_TYPE;
 import com.metaio.sdk.jni.ETRACKING_STATE;
@@ -24,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ARActivity extends ARViewActivity {
+public class ARPartsActivity extends ARViewActivity {
 
     /**
      * A list of parts and its data.
@@ -142,7 +141,7 @@ public class ARActivity extends ARViewActivity {
      */
     @Override
     protected int getGUILayout() {
-        return R.layout.part_list_fragment;
+        return R.layout.activity_ar_parts;
     }
 
     /**
@@ -158,7 +157,7 @@ public class ARActivity extends ARViewActivity {
             final File xmlPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToXml);
             result = metaioSDK.setTrackingConfiguration(xmlPath);
         } catch (Exception e) {
-            Log.d("ARActivity", "Configuration XML not loaded: " + pathToXml);
+            Log.d("ARPartsActivity", "Configuration XML not loaded: " + pathToXml);
         }
 
         return result;
@@ -188,7 +187,7 @@ public class ARActivity extends ARViewActivity {
         if (current < parts.size()) {
             setModel(last, current);
         } else {
-            Log.d("ARActivity", "At the end of the list -- show dialog or something!");
+            Log.d("ARPartsActivity", "At the end of the list -- show dialog or something!");
         }
     }
 
@@ -204,7 +203,7 @@ public class ARActivity extends ARViewActivity {
         if (current < parts.size() && last < parts.size()) {
             setModel(last, current);
         } else {
-            Log.d("ARActivity", "At the end of the list -- show dialog or something!");
+            Log.d("ARPartsActivity", "At the end of the list -- show dialog or something!");
         }
     }
 
@@ -250,7 +249,7 @@ public class ARActivity extends ARViewActivity {
             final File fModelPath = AssetsManager.getAssetPathAsFile(getApplicationContext(), pathToModel);
             geometry = metaioSDK.createGeometry(fModelPath);
         } catch (Exception e) {
-            Log.d("ARActivity", "Model not loaded: " + pathToModel);
+            Log.d("ARPartActivity", "Model not loaded: " + pathToModel);
         }
 
         return geometry;
@@ -263,7 +262,7 @@ public class ARActivity extends ARViewActivity {
             for (int i = 0; i < trackingValues.size(); i++) {
                 final TrackingValues v = trackingValues.get(i);
                 if (v.getCoordinateSystemID() == 1 && v.getState() == ETRACKING_STATE.ETS_FOUND) {
-                    Log.d("ARActivity", "hittade object!");
+                    Log.d("ARPartsActivity", "hittade object!");
                     PartListFragment partListFragment = (PartListFragment) getFragmentManager().findFragmentById(R.id.item_list);
                     partListFragment.onFound(current);
 
@@ -295,4 +294,13 @@ public class ARActivity extends ARViewActivity {
         params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         camera.setParameters(params);
     }
+
+    // Is called when the button "Product List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ARPartsActivity.class that shows and handles the product list.
+    public void onCreateARInstructionsView() {
+        Intent intent = new Intent(this, ARInstructionsActivity.class);
+        startActivity(intent);
+    }
 }
+
