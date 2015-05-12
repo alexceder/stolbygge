@@ -2,13 +2,18 @@ package se.stolbygge.stolbygge;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.metaio.sdk.ARViewActivity;
+import com.metaio.sdk.GestureHandlerAndroid;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.ELIGHT_TYPE;
+import com.metaio.sdk.jni.GestureHandler;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.ILight;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
@@ -47,18 +52,44 @@ public class ARInstructionsActivity extends ARViewActivity {
      */
     public static final int PAUSED = 2;
 
+    /**
+     * A Gesture handler.
+     */
+    private GestureHandlerAndroid mGestureHandler;
+
+    /**
+     * Some good to have values for gesture handling.
+     *
+     * Note: Should probably refactor all this into a class.
+     */
+    float dx, dy, lastX, lastY;
+    Rotation rotation;
+    int current;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mCallbackHandler = new IMetaioSDKCallback();
+
+        mGestureHandler = new GestureHandlerAndroid(metaioSDK, GestureHandler.GESTURE_DRAG);
+
+        // TODO: Make sure these initial values are OK for all parts.
+        dx = 0f;
+        dy = 2f;
+
+        rotation = new Rotation(dx, dy, 0);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         mCallbackHandler.delete();
         mCallbackHandler = null;
+
+        mGestureHandler.delete();
+        mGestureHandler = null;
     }
 
     @Override
@@ -69,6 +100,52 @@ public class ARInstructionsActivity extends ARViewActivity {
     @Override
     protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
         return mCallbackHandler;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        // Animation is paused -- proceed.
+        if (step_geometries.get(current).getCoordinateSystemID() == 0) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    lastX = event.getX() - dx;
+                    lastY = event.getY() - dy;
+
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    // set delta touch position
+                    dx = event.getX() - lastX;
+                    dy = event.getY() - lastY;
+
+                    // convert pixels to radians, arbitrary velocity number
+                    int velocity = 10;
+
+                    // get rotation angles
+                    double angleY = dx / velocity;
+                    double angleX = dy / velocity;
+
+                    // multiply rotation matrices to get local model rotation
+                    Rotation localRotation;
+                    Rotation rot1 = new Rotation();
+                    Rotation rot2 = new Rotation();
+                    rot1.setFromEulerAngleDegrees(new Vector3d((float) angleX, 0, 0));
+                    rot2.setFromEulerAngleDegrees(new Vector3d(0, (float) angleY, 0));
+                    localRotation = rot1.multiply(rot2);
+
+                    // multiply with inverse of initial rotation to rotate in global coordinate system
+                    localRotation = rotation.inverse().multiply(localRotation);
+                    float[] mat = new float[9];
+                    localRotation.getRotationMatrix(mat);
+
+                    step_geometries.get(current).setRotation(localRotation);
+                    //modelOnScreen.setRotation(localRotation);
+
+                    break;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -124,6 +201,7 @@ public class ARInstructionsActivity extends ARViewActivity {
         setTrackingConfiguration("TrackingData_Marker.xml");
 
         setStep(0, 0);
+        current = 0;
     }
 
     @Override
@@ -182,6 +260,8 @@ public class ARInstructionsActivity extends ARViewActivity {
         // .. and set it up properly
         setGeometryState(step_geometries.get(next), ANIMATING);
         step_geometries.get(next).startAnimation("Default Take", true);
+
+        current = next;
     }
 
     /**
