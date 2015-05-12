@@ -42,9 +42,10 @@
 
         <!-- Animation view button -->
         <Button
+            android:id="@+id/pause_toggle_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/show_step_animation" />
+            android:text="@string/show_step_animation_pause" />
 
         <!-- Next button -->
         <Button
