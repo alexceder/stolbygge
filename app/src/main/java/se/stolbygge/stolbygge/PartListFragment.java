@@ -64,8 +64,6 @@ public class PartListFragment extends Fragment {
             public void run(){
                 int button_height = l_b.getHeight() * 2;
 
-                Log.d("*****", "button_height = " + button_height);
-
                 //Get display height
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 ((Activity) rootView.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -73,8 +71,6 @@ public class PartListFragment extends Fragment {
                 int display_width = displaymetrics.widthPixels;
 
                 int equals = display_height - button_height;
-                Log.d("*********", "height: " + display_height + " width: " + display_width);
-                Log.d("*********", "display - button = " + equals);
 
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) partListView.getLayoutParams();
                 lp.height = equals;

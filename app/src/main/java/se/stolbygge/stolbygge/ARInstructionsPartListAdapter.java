@@ -61,7 +61,7 @@ public class ARInstructionsPartListAdapter extends ArrayAdapter<Part> {
 
         // Text showing amount as: 2x
         TextView text = (TextView) view.findViewById(R.id.part_text);
-        text.setText(Integer.toString(currentPart.getAmount()) + "x");
+        text.setText("x" + Integer.toString(currentPart.getAmount()));
 
         // Activity will handle metaio changes
         final ARInstructionsActivity activity = (ARInstructionsActivity) context;
