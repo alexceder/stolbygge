@@ -170,8 +170,8 @@ public class ARInstructionsActivity extends ARViewActivity {
         for (Step step : steps) {
             IGeometry step_geometry = loadModel(
                     // TODO: Open this comment up when the models exist
-                    //"steg_" + step.getStepNr() + "/steg_" + step.getStepNr() + ".zip");
-                    "steg_1/steg_1.zip");
+                    "steg_" + step.getStepNr() + "/steg_" + step.getStepNr() + ".zip");
+                    //"steg_1/steg_1.zip");
 
             setGeometryState(step_geometry, ANIMATING);
             step_geometry.setVisible(false);
