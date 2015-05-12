@@ -22,6 +22,7 @@ import com.metaio.tools.io.AssetsManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends ARViewActivity {
 
@@ -33,6 +34,11 @@ public class MainActivity extends ARViewActivity {
     private float lastX, lastY;
     float dx = 0, dy = 2; // initial model rotation
     Rotation rotation;
+    private Rotation lastRotation;
+
+    private ArrayList<IGeometry> texturedModels;
+    private ArrayList<String> modelPaths;
+    private int current;
 
     //Metaio SDK Callback handler
     private IMetaioSDKCallback mCallbackHandler;
@@ -45,6 +51,7 @@ public class MainActivity extends ARViewActivity {
         mCallbackHandler = new IMetaioSDKCallback();
         mGestureMask = GestureHandler.GESTURE_DRAG;
         mGestureHandler = new GestureHandlerAndroid(metaioSDK, mGestureMask);
+        current = 0;
     }
 
     @Override
@@ -95,7 +102,8 @@ public class MainActivity extends ARViewActivity {
                 localRotation = rotation.inverse().multiply(localRotation);
                 float[] mat = new float[9];
                 localRotation.getRotationMatrix(mat);
-                modelOnScreen.setRotation(localRotation);
+                texturedModels.get(current).setRotation(localRotation);
+                lastRotation = localRotation;
 
                 break;
         }
@@ -125,33 +133,41 @@ public class MainActivity extends ARViewActivity {
             MetaioDebug.printStackTrace(Log.ERROR, e);
         }
 
-        //Load model
-        modelOnScreen = loadModel("kritter.obj");
+        // Sets the directional light
+        mDirectionalLight = metaioSDK.createLight();
+        mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
+        mDirectionalLight.setAmbientColor(new Vector3d(0.827f, 0.827f, 0.827f)); // Light Grey
+        mDirectionalLight.setDiffuseColor(new Vector3d(0.855f, 0.647f, 0.125f)); // Goldenrod
+        mDirectionalLight.setCoordinateSystemID(0);
+
         rotation = new Rotation(dx, dy, 0);
+        lastRotation = rotation;
 
-        // Check that model not null
-        if(modelOnScreen != null) {
-            // Sets the directional light
-            mDirectionalLight = metaioSDK.createLight();
-            mDirectionalLight.setType(ELIGHT_TYPE.ELIGHT_TYPE_DIRECTIONAL);
-            mDirectionalLight.setAmbientColor(new Vector3d(0.827f, 0.827f, 0.827f)); // Light Grey
-            mDirectionalLight.setDiffuseColor(new Vector3d(0.855f, 0.647f, 0.125f)); // Goldenrod
-            mDirectionalLight.setCoordinateSystemID(0);
+        texturedModels = new ArrayList<>();
+        modelPaths = new ArrayList<>();
+        modelPaths.add("Textur_leftleg");
+        modelPaths.add("Textur_rightleg");
+        modelPaths.add("Textur_sits");
+        modelPaths.add("Textur_ryggtopp");
+        modelPaths.add("Textur_ryggstod");
+        modelPaths.add("Textur_unselected");
 
-            modelOnScreen.setCoordinateSystemID(mDirectionalLight.getCoordinateSystemID());
-            // Anchors the model in front of camera
-            modelOnScreen.setRelativeToScreen(IGeometry.ANCHOR_CC);
-            // Should be scaled according to size of device instead.
-            rotation = new Rotation(dx, dy, 0);
-            modelOnScreen.setScale(new Vector3d(1.6f, 1.6f, 1.6f) );
-            modelOnScreen.setRotation(rotation, true);
-            modelOnScreen.setDynamicLightingEnabled(true);
+        for (String modelPath : modelPaths) {
+            IGeometry texturedModel = loadModel("stol/" + modelPath + "/" + modelPath + ".obj");
 
-            mGestureHandler.addObject(modelOnScreen, 1);
+            texturedModel.setVisible(false);
+            texturedModel.setRelativeToScreen(IGeometry.ANCHOR_CC);
+            texturedModel.setScale(25f);
+            texturedModel.setRotation(rotation, true);
+            texturedModel.setDynamicLightingEnabled(true);
 
-        } else {
-            Log.d("*MainActivity*", "Model not loaded!");
+            mGestureHandler.addObject(texturedModel, 1);
+
+            texturedModels.add(texturedModel);
+
         }
+
+        setModel(current, current);
     }
 
     // Loads tracking model, returns an IGeometry
@@ -176,6 +192,24 @@ public class MainActivity extends ARViewActivity {
 
     }
 
+    private void setModel(int last, int next) {
+        // Hide current
+        if (last != next) {
+            texturedModels.get(last).setVisible(false);
+        }
+
+        // Show next
+        texturedModels.get(next).setVisible(true);
+
+        // Set coordinate systems
+        texturedModels.get(next).setCoordinateSystemID(0);
+
+        // Set rotation
+        texturedModels.get(next).setRotation(lastRotation);
+
+        // All this updates the activity, there is no explicit reload.
+    }
+
     // Is called when the button "Product List" is clicked.
     // Creates an abstract description called intent I, with an operation to be performed.
     // The operation is to call ARPartsActivity.class that shows and handles the product list.
@@ -187,5 +221,16 @@ public class MainActivity extends ARViewActivity {
     public void onCreateARInstructionsView() {
         Intent intent = new Intent(this, ARInstructionsActivity.class);
         startActivity(intent);
+    }
+
+    public void highlightPart(int position) {
+        Log.d("***" , "changing " + position);
+        int last = current;
+        if(position == current) {
+            current = texturedModels.size() - 1;
+        } else {
+            current = position;
+        }
+        setModel(last, current);
     }
 }

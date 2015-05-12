@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -17,6 +18,7 @@ public class MainFragment extends Fragment {
     Button button_productlist;
     Button button_assemble;
     Button button_evaluate;
+    ListView partListView;
 
     public MainFragment() {
         // Required empty public constructor
@@ -58,5 +60,9 @@ public class MainFragment extends Fragment {
                 activity.onCreateARInstructionsView();
             }
         });
+
+        MainPartListAdapter adapter = new MainPartListAdapter(this.getActivity(), R.layout.part_list_item, Store.getInstance().getBigParts());
+        partListView = (ListView) rootView.findViewById(R.id.part_list);
+        partListView.setAdapter(adapter);
     }
 }

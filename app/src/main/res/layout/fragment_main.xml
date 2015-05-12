@@ -59,4 +59,10 @@
             android:text="Evaluate"/>
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/part_list"
+        android:layout_width="150dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"/>
+
 </RelativeLayout>
