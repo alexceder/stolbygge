@@ -1,6 +1,7 @@
 package se.stolbygge.stolbygge;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -295,4 +296,13 @@ public class ARActivity extends ARViewActivity {
         params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         camera.setParameters(params);
     }
+
+    // Is called when the button "Product List" is clicked.
+    // Creates an abstract description called intent I, with an operation to be performed.
+    // The operation is to call ARActivity.class that shows and handles the product list.
+    public void onCreateARInstructionsView() {
+        Intent intent = new Intent(this, ARInstructionsActivity.class);
+        startActivity(intent);
+    }
 }
+
