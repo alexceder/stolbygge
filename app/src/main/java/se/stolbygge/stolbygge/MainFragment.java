@@ -1,7 +1,6 @@
 package se.stolbygge.stolbygge;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class BeginFragment extends Fragment {
+public class MainFragment extends Fragment {
 
     View rootView;
-    BeginActivity activity;
+    MainActivity activity;
     TextView welcometext;
     Button button_productlist;
     Button button_assemble;
     Button button_evaluate;
 
-    public BeginFragment() {
+    public MainFragment() {
         // Required empty public constructor
     }
 
@@ -27,9 +26,9 @@ public class BeginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_begin, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        activity = (BeginActivity) getActivity();
+        activity = (MainActivity) getActivity();
 
         welcometext = (TextView) rootView.findViewById(R.id.welcomeText);
         welcometext.setText("Welcome to the assembly aid to Kritter!");
@@ -44,12 +43,7 @@ public class BeginFragment extends Fragment {
         return rootView;
     }
 
-
     private void init(){
-
-        //TODO: Add the functions for the buttons
-
-        // TODO: BÖRJA HÄR!
 
         button_productlist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +58,5 @@ public class BeginFragment extends Fragment {
                 activity.onCreateARInstructionsView();
             }
         });
-
     }
-
 }

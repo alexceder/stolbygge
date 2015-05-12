@@ -2,29 +2,23 @@ package se.stolbygge.stolbygge;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
 public class PartListFragment extends Fragment {
 
     View rootView;
-    ARActivity activity;
+    ARPartsActivity activity;
     private PartListAdapter adapter;
     private ArrayList<Part> parts;
     ListView partListView;
@@ -43,9 +37,9 @@ public class PartListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.part_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_part_list, container, false);
 
-        activity = (ARActivity) getActivity();
+        activity = (ARPartsActivity) getActivity();
 
         partListView = (ListView) rootView.findViewById(R.id.list_view);
         button_next = (Button) rootView.findViewById(R.id.button_next);

@@ -35,34 +35,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BeginActivity"
-            android:label="Begin"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity
-            android:name=".ListActivity"
-            android:label="@string/title_activity_list"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity
-            android:name=".MissingPartsActivity"
-            android:label="@string/title_activity_missing"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity
-            android:name=".InstructionsActivity"
-            android:label="@string/title_activity_instructions"
-            android:theme="@style/InstructionsTheme"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity
-            android:name=".ARActivity"
+            android:name=".ARPartsActivity"
             android:label="ARActivity"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity
-            android:name=".ModelView"
-            android:label="Model View"
             android:screenOrientation="landscape">
         </activity>
         <activity

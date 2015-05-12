@@ -48,7 +48,7 @@ public class ARInstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_arinstructions, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_ar_instructions, container, false);
 
         // Get steps
         steps = Store.getInstance().getSteps();

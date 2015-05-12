@@ -1,8 +1,6 @@
 package se.stolbygge.stolbygge;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +74,7 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
         checkboxImage.setImageResource(imgId);
 
-        final ARActivity activity = (ARActivity) context;
+        final ARPartsActivity activity = (ARPartsActivity) context;
 
         checkboxImage.setOnClickListener(new View.OnClickListener() {
             @Override
