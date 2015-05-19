@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class ARInstructionsFragment extends Fragment {
      */
     private TextView stepHeadingView;
 
+    private ImageView stepImageView;
+
     private LinearLayout progressListView;
 
     private boolean paused;
@@ -61,6 +64,9 @@ public class ARInstructionsFragment extends Fragment {
 
         // Store this in a variable so we dont have to findViewById every click.
         stepHeadingView = (TextView) rootView.findViewById(R.id.step_text);
+
+        // Store the imageView so we can easily change the step corner picture
+        stepImageView = (ImageView) rootView.findViewById(R.id.chairView);
 
         // Next step button
         Button nextButton = (Button) rootView.findViewById(R.id.next_button);
@@ -94,6 +100,7 @@ public class ARInstructionsFragment extends Fragment {
         return rootView;
     }
 
+
     /**
      * Create the list of parts needed for the specific step
      */
@@ -118,12 +125,19 @@ public class ARInstructionsFragment extends Fragment {
         // Highlight progressbar
         // This could be done as per next section if this was a list adapter
         // however this is easier -- but uglier.
-        for (int i = 0 ; i < progressListView.getChildCount(); ++i) {
+        for (int i = 0; i < progressListView.getChildCount(); ++i) {
             progressListView.getChildAt(i).setBackgroundColor(
                     getResources().getColor(R.color.bgc_progressbar_unvisited));
         }
         progressListView.findViewById(currentStep).setBackgroundColor(
                 getResources().getColor(R.color.bgc_current));
+
+        //grab the id for the current step
+        int stepCornerPic = getActivity().getResources().getIdentifier("hela_stolen_steg" + (currentStep + 1), "drawable", getActivity().getPackageName());
+
+        // Do not change picture if the step is only related to the screws
+        if (currentStep < 4)
+            stepImageView.setImageResource(stepCornerPic);
 
         // Update step parts list adapter
         ArrayList<Part> currentStepParts = steps.get(currentStep).getParts();
@@ -161,7 +175,8 @@ public class ARInstructionsFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            if (currentStep+1 < steps.size()) {
+
+            if (currentStep + 1 < steps.size()) {
                 ((ARInstructionsActivity) getActivity()).setStep(currentStep++, currentStep);
                 updateToCurrentStep();
             } else {
