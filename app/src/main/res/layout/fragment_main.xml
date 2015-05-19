@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="test"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_gravity="center_horizontal"/>
@@ -30,7 +29,7 @@
             android:id="@+id/button_productlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Product List"/>
+            android:text="@string/activity_ar_parts"/>
 
 
         <!-- Button "steg för steg" -->
@@ -39,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:text="Assemble"
+            android:text="@string/assemble"
             />
     </LinearLayout>
 
@@ -56,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Evaluate"/>
+            android:text="@string/evaluate"/>
     </LinearLayout>
 
     <ListView

@@ -28,7 +28,6 @@
             android:background="@color/bgc_current"
             android:gravity="center"
             android:padding="10dp"
-            android:text="1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <!-- Part list -->

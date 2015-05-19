@@ -67,7 +67,7 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         partImage.setImageResource(imgId);
 
         TextView text = (TextView) view.findViewById(R.id.part_text);
-        text.setText(currentPart.getName() + " (" + Integer.toString(currentPart.getAmount()) + ")");
+        text.setText("x" + Integer.toString(currentPart.getAmount()));
 
         final ImageView checkboxImage = (ImageView) view.findViewById(R.id.part_checkbox);
         String imgSource = (currentPart.isFound()) ? "checkbox_checked" : "checkbox_unchecked";
