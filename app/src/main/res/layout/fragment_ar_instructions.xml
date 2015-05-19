@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:background="@color/bgc_current"
             android:gravity="center"
-            android:padding="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:padding="10dp" />
 
         <!-- Part list -->
         <ListView
@@ -73,7 +72,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/listview_progresslist"
         android:padding="10dp"
-        android:src="@drawable/hela_stolen_steg1" />
+        android:src="@drawable/hela_stolen_steg1"
+        android:background="@color/teal_dark"
+        android:layout_margin="5dp"/>
 
     <!-- Question mark button -->
     <ImageButton

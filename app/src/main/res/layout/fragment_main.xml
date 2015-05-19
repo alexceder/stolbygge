@@ -8,9 +8,9 @@
     <!-- Left welcome menu -->
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="150dp"
+        android:layout_width="190dp"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        style="@style/listBackground" >
 
 
         <!-- Welcome text -->
@@ -21,40 +21,44 @@
             android:layout_margin="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:textColor="@color/white"
             android:layout_gravity="center_horizontal"/>
 
 
         <!-- Button "har du alla delar" -->
         <Button
             android:id="@+id/button_productlist"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/activity_ar_parts"/>
 
 
         <!-- Button "steg för steg" -->
         <Button
             android:id="@+id/button_assemble"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
+            android:layout_margin="10dp"
             android:text="@string/assemble"
             />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="150dp"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        style="@style/listBackground"
         android:layout_alignParentBottom="true">
 
         <!-- Button "Utvärdera" -->
         <Button
             android:id="@+id/button_evaluate"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
             android:text="@string/evaluate"/>
     </LinearLayout>
 
@@ -62,6 +66,10 @@
         android:id="@+id/part_list"
         android:layout_width="150dp"
         android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:divider="@color/teal_dark"
+        android:dividerHeight="5dp"
+        android:padding="5dp"
+        android:background="@color/teal_dark"/>
 
 </RelativeLayout>

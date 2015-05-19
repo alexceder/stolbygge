@@ -24,6 +24,13 @@
     <item name="yellow" type="color">#999900</item>
     <item name="blue" type="color">#0000ff</item>
     <item name="white" type="color">#fff</item>
+    <item name="black" type="color">#212121</item>
     <item name="pink" type="color">#f0f</item>
+
+    <!-- Theme colors -->
+    <item name="teal_dark" type="color">#00796B</item>
+    <item name="teal_light" type="color">#009688</item>
+    <item name="teal_bright" type="color">#B2DFDB</item>
+    <item name="light_green" type="color">#8BC34A</item>
 
 </resources>
