@@ -575,6 +575,20 @@ public class ARInstructionsActivity extends ARViewActivity {
         return current_textured;
     }
 
+    public void openRating() {
+
+        RatingFragment ratingFragment = new RatingFragment();
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.main_fragment, ratingFragment).commit();
+    }
+
+    public void closeRating(Fragment fragment) {
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.detach(fragment).commit();
+    }
+
     /**
      * Extended MetaioSDK Callback that handles the event where a 3D model has been found.
      *

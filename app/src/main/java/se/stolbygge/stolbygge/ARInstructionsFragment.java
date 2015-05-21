@@ -1,6 +1,7 @@
 package se.stolbygge.stolbygge;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -42,6 +43,10 @@ public class ARInstructionsFragment extends Fragment {
     private LinearLayout progressListView;
 
     private boolean paused;
+
+    Fragment thisFragment;
+
+    ARInstructionsActivity activity;
 
     public ARInstructionsFragment() {
         //
@@ -92,6 +97,10 @@ public class ARInstructionsFragment extends Fragment {
 
             progressListView.addView(button);
         }
+
+        thisFragment = this;
+
+        activity = (ARInstructionsActivity) getActivity();
 
         // Run this method.
         // This might be a bit uncessesary -- but we keep all the "current nuisance" in one place.
@@ -187,16 +196,16 @@ public class ARInstructionsFragment extends Fragment {
                 // An alternative could be to hide the next button when you come to the last step
                 // and always show some kind of DONE button or something.
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Inga fler steg!")
-                        .setMessage("Är du klar? Betygsätt gärna!")
-                        .setNegativeButton("Nej,Tillbaka", new DialogInterface.OnClickListener() {
+                        .setTitle("You've made it!")
+                        .setMessage("Please give us five stars!")
+                        .setNegativeButton("No,thanks", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Do nothing
                             }
                         })
-                        .setPositiveButton("Ja, betygsätt!", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Yes, I would like that!", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO: Move on to rate view
+                                activity.openRating();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_info)

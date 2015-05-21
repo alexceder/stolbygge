@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Background colors -->
-        <!-- General colors -->
-        <item name="bgc_done" type="color">#18B512</item> <!-- Background color for completed steps -->
-        <item name="bgc_current" type="color">#ff0</item> <!-- Background color for current step -->
+<!-- Background colors -->
+    <!-- General colors -->
+    <item name="bgc_done" type="color">#18B512</item> <!-- Background color for completed steps -->
+    <item name="bgc_current" type="color">#ff0</item> <!-- Background color for current step -->
+    <item name="transparent_black" type="color">#000000</item>
+    <item name="transparent_gray" type="color">#99121212</item>
 
-        <!-- Specific colors -->
-        <item name="bgc_progressbar_unvisited" type="color">#bbb</item> <!-- Background color for unvisited steps -->
-        <item name="bgc_AR_view_unvisited" type="color">#fff</item> <!-- Background color for unvisited objects -->
-        <item name="bgc_AR_view_not_found" type="color">#f33</item> <!-- Background color for unrecognized objects -->
+    <!-- Specific colors -->
+    <item name="bgc_progressbar_unvisited" type="color">#bbb</item> <!-- Background color for unvisited steps -->
+    <item name="bgc_AR_view_unvisited" type="color">#fff</item> <!-- Background color for unvisited objects -->
+    <item name="bgc_AR_view_not_found" type="color">#f33</item> <!-- Background color for unrecognized objects -->
 
-        <!-- Buttons -->
-        <item name="bgc_button" type="color">#bbb</item> <!-- Primary button background color -->
-        <item name="bgc_button_clicked" type="color">#777</item> <!-- Background color for clicked button -->
+    <!-- Buttons -->
+    <item name="bgc_button" type="color">#bbb</item> <!-- Primary button background color -->
+    <item name="bgc_button_clicked" type="color">#777</item> <!-- Background color for clicked button -->
 
     <!-- Font colors -->
     <item name="fc_primary" type="color">#555</item> <!-- Primary font color -->
