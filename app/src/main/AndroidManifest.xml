@@ -26,23 +26,13 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".ARInstructionsActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ARPartsActivity"
-            android:label="ARActivity"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity
-            android:name=".ARInstructionsActivity"
-            android:label="AR Instructions View"
-            android:screenOrientation="landscape">
         </activity>
     </application>
 </manifest>

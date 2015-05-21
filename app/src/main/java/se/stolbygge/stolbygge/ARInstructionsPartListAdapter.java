@@ -63,13 +63,11 @@ public class ARInstructionsPartListAdapter extends ArrayAdapter<Part> {
         TextView text = (TextView) view.findViewById(R.id.part_text);
         text.setText("x" + Integer.toString(currentPart.getAmount()));
 
-        // Activity will handle metaio changes
-        final ARInstructionsActivity activity = (ARInstructionsActivity) context;
-
         view.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // TODO expand on click
+                // TODO: Expand on click
                 Log.d("ALEX", "NU KLICKADE DU PÅ EN DEL I EN STEGLISTA!");
             }
         });

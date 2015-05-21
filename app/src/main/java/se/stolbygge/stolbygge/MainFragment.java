@@ -1,7 +1,7 @@
 package se.stolbygge.stolbygge;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class MainFragment extends Fragment {
 
     View rootView;
-    MainActivity activity;
+    ARInstructionsActivity activity;
     TextView welcometext;
     Button button_productlist;
     Button button_assemble;
@@ -30,7 +30,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        activity = (MainActivity) getActivity();
+        activity = (ARInstructionsActivity) getActivity();
 
         welcometext = (TextView) rootView.findViewById(R.id.welcomeText);
         welcometext.setText("Welcome to the assembly aid to Kritter!");

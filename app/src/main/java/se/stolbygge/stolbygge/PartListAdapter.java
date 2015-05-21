@@ -74,7 +74,7 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         imgId = context.getResources().getIdentifier(imgSource, "drawable", context.getPackageName());
         checkboxImage.setImageResource(imgId);
 
-        final ARPartsActivity activity = (ARPartsActivity) context;
+        final ARInstructionsActivity activity = (ARInstructionsActivity) context;
 
         checkboxImage.setOnClickListener(new View.OnClickListener() {
             @Override

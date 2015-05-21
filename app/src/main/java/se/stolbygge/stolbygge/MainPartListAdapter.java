@@ -16,7 +16,7 @@ public class MainPartListAdapter extends ArrayAdapter<Part> {
     protected Context context;
     protected ArrayList<Part> parts;
     protected int resource;
-    public int current = 0;
+    public int current;
 
     public MainPartListAdapter (Context context, int resource, ArrayList<Part> parts) {
         super(context, resource, parts);
@@ -56,7 +56,9 @@ public class MainPartListAdapter extends ArrayAdapter<Part> {
             view = convertView;
         }
 
-        if(current == position) {
+        current = ((ARInstructionsActivity) getContext()).getCurrentTextured();
+
+        if (current == position) {
             view.setBackgroundColor(Color.GREEN);
         } else {
             view.setBackgroundColor(Color.WHITE);
@@ -72,16 +74,16 @@ public class MainPartListAdapter extends ArrayAdapter<Part> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((ARInstructionsActivity) context).onClickTexturedPosition(position);
 
-                MainActivity activity = (MainActivity) context;
-                activity.highlightPart(position);
-                if(position == current) {
+                if (position == current) {
                     current = -1;
                     v.setBackgroundColor(Color.WHITE);
                 } else {
                     current = position;
                     v.setBackgroundColor(Color.GREEN);
                 }
+
                 notifyDataSetChanged();
             }
         });
