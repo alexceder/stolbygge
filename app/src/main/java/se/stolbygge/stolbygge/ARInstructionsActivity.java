@@ -2,6 +2,7 @@ package se.stolbygge.stolbygge;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -85,9 +86,17 @@ public class ARInstructionsActivity extends ARViewActivity {
     private int current_textured;
     private IGeometry current_geometry;
 
+    /**
+     * Intro dialog to be shown when activity is loading.
+     */
+    private ProgressDialog introDialog = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Open intro dialog that will be closed when the activity is finished loading
+        introDialog = ProgressDialog.show(this, "Welcome to Stolbygge", "Let's get started!", true, false);
 
         mCallbackHandler = new FoundObjectCallback();
 
@@ -252,6 +261,8 @@ public class ARInstructionsActivity extends ARViewActivity {
         setTexturedModel(0, 0);
 
         setFragment(new MainFragment());
+
+        introDialog.dismiss();
     }
 
     @Override
