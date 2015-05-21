@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -96,6 +97,18 @@ public class ARInstructionsFragment extends Fragment {
         // Run this method.
         // This might be a bit uncessesary -- but we keep all the "current nuisance" in one place.
         updateToCurrentStep();
+
+        ImageButton button_questionmark = (ImageButton) rootView.findViewById(R.id.button_questionmark);
+        button_questionmark.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ImageView help_overlay = (ImageView)getActivity().findViewById(R.id.overlay_assemble);
+                if(help_overlay.getVisibility() == View.GONE)
+                    help_overlay.setVisibility(View.VISIBLE);
+                else
+                    help_overlay.setVisibility((View.GONE));
+            }
+        });
 
         return rootView;
     }
