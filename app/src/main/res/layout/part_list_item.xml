@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical"
     android:paddingBottom="@dimen/list_item_padding"
     android:paddingLeft="0dp"
     android:paddingRight="@dimen/list_item_padding"
-    android:paddingTop="@dimen/list_item_padding">
+    android:paddingTop="@dimen/list_item_padding"
+    android:background="@drawable/rounded_corners">
 
     <ImageView
         android:id="@+id/part_image"

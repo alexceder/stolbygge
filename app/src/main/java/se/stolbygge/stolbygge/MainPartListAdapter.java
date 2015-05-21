@@ -56,12 +56,10 @@ public class MainPartListAdapter extends ArrayAdapter<Part> {
             view = convertView;
         }
 
-        current = ((ARInstructionsActivity) getContext()).getCurrentTextured();
-
-        if (current == position) {
-            view.setBackgroundColor(Color.GREEN);
+        if(current == position) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.light_green));
         } else {
-            view.setBackgroundColor(Color.WHITE);
+            view.setBackgroundColor(context.getResources().getColor(R.color.teal_light));
         }
 
         ImageView partImage = (ImageView) view.findViewById(R.id.part_image);
@@ -78,10 +76,10 @@ public class MainPartListAdapter extends ArrayAdapter<Part> {
 
                 if (position == current) {
                     current = -1;
-                    v.setBackgroundColor(Color.WHITE);
+                    v.setBackgroundColor(context.getResources().getColor(R.color.teal_light));
                 } else {
                     current = position;
-                    v.setBackgroundColor(Color.GREEN);
+                    v.setBackgroundColor(context.getResources().getColor(R.color.light_green));
                 }
 
                 notifyDataSetChanged();

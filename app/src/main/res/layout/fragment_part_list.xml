@@ -12,13 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="7dp">
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/list_view"
             android:layout_width="200dp"
             android:layout_height="40dp"
+            android:divider="@color/teal_dark"
+            android:dividerHeight="5dp"
+            android:padding="5dp"
             android:layout_alignParentRight="true"/>
     </LinearLayout>
 
@@ -28,15 +30,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:paddingBottom="7dp">
+        android:padding="5dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/button_next"
-            android:layout_width="200dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/next_step"/>
+            android:text="Assemble"/>
 
     </LinearLayout>
 
