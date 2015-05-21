@@ -238,8 +238,16 @@ public class ARInstructionsFragment extends Fragment {
             Button btn = (Button) v;
             if (getString(R.string.show_step_animation).equals(btn.getText())) {
                 btn.setText(getString(R.string.show_step_animation_pause));
+
+                Drawable image = getActivity().getResources().getDrawable(android.R.drawable.ic_media_pause);
+                image.setBounds(0, 0, 60, 60);
+                btn.setCompoundDrawables(image, null, null, null);
             } else {
                 btn.setText(getString(R.string.show_step_animation));
+
+                Drawable image = getActivity().getResources().getDrawable( android.R.drawable.ic_media_play );
+                image.setBounds( 0, 0, 60, 60 );
+                btn.setCompoundDrawables( image, null, null, null );
             }
         }
     }
