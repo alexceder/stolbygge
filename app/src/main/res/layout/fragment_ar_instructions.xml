@@ -75,4 +75,22 @@
         android:padding="10dp"
         android:src="@drawable/hela_stolen_steg1" />
 
+    <!-- Question mark button -->
+    <ImageButton
+        android:id="@+id/button_questionmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@android:drawable/ic_menu_help"/>
+
+    <!-- Help overlay assemble -->
+    <ImageView
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/overlay_assemble"
+        android:src="@drawable/help_overlay_assemble_720"
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>
