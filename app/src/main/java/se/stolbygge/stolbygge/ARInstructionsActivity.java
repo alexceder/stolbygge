@@ -301,7 +301,7 @@ public class ARInstructionsActivity extends ARViewActivity {
                 break;
 
             case PAUSED:
-                if( current == 0 ) { that.setScale(50f); }
+                if( current == 0 ) that.setScale(50f);
                 else that.setScale(20f);
                 that.setRelativeToScreen(IGeometry.ANCHOR_CC);
                 mDirectionalLight.setCoordinateSystemID(0);
