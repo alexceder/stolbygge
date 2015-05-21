@@ -12,4 +12,9 @@
     <string name="show_step_animation_pause">Pause animation</string>
     <string name="assemble">Assemble</string>
     <string name="evaluate">Evaluate</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="rating_message">Thank you, beautiful!</string>
+    <string name="rating_hint">Enter your thoughts here...</string>
+
 </resources>

@@ -64,5 +64,12 @@ public class MainFragment extends Fragment {
         MainPartListAdapter adapter = new MainPartListAdapter(this.getActivity(), R.layout.part_list_item, Store.getInstance().getBigParts());
         partListView = (ListView) rootView.findViewById(R.id.part_list);
         partListView.setAdapter(adapter);
+
+        button_evaluate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.openRating();
+            }
+        });
     }
 }
