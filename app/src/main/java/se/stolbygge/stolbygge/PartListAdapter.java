@@ -55,11 +55,11 @@ public class PartListAdapter extends ArrayAdapter<Part> {
         }
 
         if (position == current) {
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.bgc_current));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.teal_bright));
         } else if (currentPart.isFound()) {
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.bgc_done));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.teal_light));
         } else {
-            view.setBackgroundColor(getContext().getResources().getColor(R.color.bgc_AR_view_unvisited));
+            view.setBackgroundColor(getContext().getResources().getColor(R.color.teal_light));
         }
 
         ImageView partImage = (ImageView) view.findViewById(R.id.part_image);

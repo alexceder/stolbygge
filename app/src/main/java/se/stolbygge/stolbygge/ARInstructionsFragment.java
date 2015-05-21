@@ -3,6 +3,7 @@ package se.stolbygge.stolbygge;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -149,10 +150,10 @@ public class ARInstructionsFragment extends Fragment {
         // however this is easier -- but uglier.
         for (int i = 0; i < progressListView.getChildCount(); ++i) {
             progressListView.getChildAt(i).setBackgroundColor(
-                    getResources().getColor(R.color.bgc_progressbar_unvisited));
+                    getResources().getColor(R.color.bgc_current));
         }
         progressListView.findViewById(currentStep).setBackgroundColor(
-                getResources().getColor(R.color.bgc_current));
+                getResources().getColor(R.color.bgc_progressbar_unvisited));
 
         //grab the id for the current step
         int stepCornerPic = getActivity().getResources().getIdentifier("hela_stolen_steg" + (currentStep + 1), "drawable", getActivity().getPackageName());
