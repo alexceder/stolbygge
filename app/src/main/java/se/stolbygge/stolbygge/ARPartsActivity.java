@@ -263,10 +263,12 @@ public class ARPartsActivity extends ARViewActivity {
                     PartListFragment partListFragment = (PartListFragment) getFragmentManager().findFragmentById(R.id.item_list);
                     partListFragment.onFound(current);
 
+                    //Delay before changing overlay.
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            SystemClock.sleep(2000);
+                            //TODO: Change 2000 to what?
+                            SystemClock.sleep(1000);
 
                             onClickNext();
                         }
