@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class PartListFragment extends Fragment {
 
     View rootView;
-    ARPartsActivity activity;
+    ARInstructionsActivity activity;
     private PartListAdapter adapter;
     private ArrayList<Part> parts;
     ListView partListView;
@@ -39,7 +39,7 @@ public class PartListFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_part_list, container, false);
 
-        activity = (ARPartsActivity) getActivity();
+        activity = (ARInstructionsActivity) getActivity();
 
         partListView = (ListView) rootView.findViewById(R.id.list_view);
         button_next = (Button) rootView.findViewById(R.id.button_next);
