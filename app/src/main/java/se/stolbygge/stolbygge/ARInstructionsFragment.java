@@ -138,6 +138,8 @@ public class ARInstructionsFragment extends Fragment {
         // Do not change picture if the step is only related to the screws
         if (currentStep < 4)
             stepImageView.setImageResource(stepCornerPic);
+        else
+            stepImageView.setImageResource(R.drawable.hela_stolen_steg4);
 
         // Update step parts list adapter
         ArrayList<Part> currentStepParts = steps.get(currentStep).getParts();
