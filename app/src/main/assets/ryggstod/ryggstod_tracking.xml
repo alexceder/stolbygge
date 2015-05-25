@@ -87,7 +87,7 @@
 
                             <!-- Renders internal values to screen. Useful to tune parameters
                                 "off", "model", "normals", "normals_and_matches", "points", "points_tested", "bounding_boxes" -->
-                            <DebugRendering>model</DebugRendering>
+                            <DebugRendering>off</DebugRendering>
 
                             <!-- Snapping Parameters (initialization) -->
 
